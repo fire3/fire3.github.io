@@ -1,0 +1,623 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="kernel,huge page," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="序言默认情况下，Linux操作系统是按照页面来管理内存使用的。当用户申请内存时，并不会真正的分配内存，而是根据“Page Fault”来触发异常，进而按照情况分配内存。用户的虚地址连续，而真实使用的物理地址不一定连续，通过“TLB”来进行虚实地址的映射。但在某些情况下，为了一些设备或特殊的计算部件需要，这些部件需要使用大块的连续物理内存，如果动辄数GB，默认的内存管理就不能满足需要了。一般情况下，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="段页结合的内存管理设计">
+<meta property="og:url" content="http://fire3.xyz/2015/03/06/huge-page/index.html">
+<meta property="og:site_name" content="fire3's notes">
+<meta property="og:description" content="序言默认情况下，Linux操作系统是按照页面来管理内存使用的。当用户申请内存时，并不会真正的分配内存，而是根据“Page Fault”来触发异常，进而按照情况分配内存。用户的虚地址连续，而真实使用的物理地址不一定连续，通过“TLB”来进行虚实地址的映射。但在某些情况下，为了一些设备或特殊的计算部件需要，这些部件需要使用大块的连续物理内存，如果动辄数GB，默认的内存管理就不能满足需要了。一般情况下，">
+<meta property="og:updated_time" content="2016-10-11T07:36:14.313Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="段页结合的内存管理设计">
+<meta name="twitter:description" content="序言默认情况下，Linux操作系统是按照页面来管理内存使用的。当用户申请内存时，并不会真正的分配内存，而是根据“Page Fault”来触发异常，进而按照情况分配内存。用户的虚地址连续，而真实使用的物理地址不一定连续，通过“TLB”来进行虚实地址的映射。但在某些情况下，为了一些设备或特殊的计算部件需要，这些部件需要使用大块的连续物理内存，如果动辄数GB，默认的内存管理就不能满足需要了。一般情况下，">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://fire3.xyz/2015/03/06/huge-page/"/>
+
+  <title> 段页结合的内存管理设计 | fire3's notes </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">fire3's notes</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                段页结合的内存管理设计
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-03-06T08:20:30+08:00" content="2015-03-06">
+              2015-03-06
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="序言"><a href="#序言" class="headerlink" title="序言"></a>序言</h3><p>默认情况下，Linux操作系统是按照页面来管理内存使用的。当用户申请内存时，并不会真正的分配内存，而是根据“Page Fault”来触发异常，进而按照情况分配内存。用户的虚地址连续，而真实使用的物理地址不一定连续，通过“TLB”来进行虚实地址的映射。但在某些情况下，为了一些设备或特殊的计算部件需要，这些部件需要使用大块的连续物理内存，如果动辄数GB，默认的内存管理就不能满足需要了。一般情况下，在系统运行一段时间后，均不能保证可以正常申请到连续的大块物理内存。针对这类应用场景，最常见的做法是在开机阶段预留内存。但预留的内存没有灵活性，成为了专用内存，不能给普通的用户程序使用，即便能够使用，也不能通过标准的接口申请，而是通过自定义的特殊接口申请。所以，在这种场景下，需要一种更加灵活的内存管理策略，将段式内存管理和页式内存管理结合起来。</p>
+<a id="more"></a>
+<h3 id="设计目标"><a href="#设计目标" class="headerlink" title="设计目标"></a>设计目标</h3><p>段页结合的内存管理设计目标是：</p>
+<ul>
+<li>系统在开机阶段预留大量内存，进入段式管理的内存资源池。</li>
+<li>针对段式管理的内存空间，支持自定义的段式内存申请、释放接口。</li>
+<li>在其它内核组件不使用段式空间，或段式空间有余量时，普通用户程序可通过标准接口使用到段式管理的内存资源池中的内存空间。</li>
+</ul>
+<h3 id="方案"><a href="#方案" class="headerlink" title="方案"></a>方案</h3><h4 id="开机阶段预留方案"><a href="#开机阶段预留方案" class="headerlink" title="开机阶段预留方案"></a>开机阶段预留方案</h4><p>首先操作系统内核需要能够识别全部内存，然后在开机阶段利用bootmem或者memblock接口进行内存空间的预留。比如利用接口:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">__alloc_bootmem_nopanic(unsigned long size, unsigned long align,</div><div class="line">                                        unsigned long goal)</div></pre></td></tr></table></figure>
+<p>操作系统内核识别全部内存的用意在于memmap中要建立起所有的page结构,后续才可以用<code>pfn_to_page</code>之类的接口得到对应的page结构，有了page结构，才好在通用的内存管理框架中进行代码集成。</p>
+<h4 id="段页结合设计方案"><a href="#段页结合设计方案" class="headerlink" title="段页结合设计方案"></a>段页结合设计方案</h4><p>在最普通的内存管理接口中去结合段式管理是不现实的，而且小页面会导致段式空间使用过于零碎。将段页结合起来，我们重点关注大页的实现。下面首先介绍一下内核中的透明大页机制。</p>
+<p>某些对性能敏感的，并且操作大量内存的课题已经可以通过大页和libhugetlbfs库来优化性能，但是libhugetlbfs在将malloc或者shm_get空间转化成大页使用时，如果大页无法申请到的话，将会报错，并导致程序运行错误。而Transparent Hugepage是另外一种使用大页进行优化的方式，它支持自动的使用大页，并且在大页不够的情况下降级为小页，保证对用户透明。</p>
+<p>目前Transparent Hugepage（下文简称THP）仅针对匿名内存。匿名内存是一类没有关联文件或设备的内存。用户程序中的栈、堆空间均属于匿名内存。一般情况下，匿名内存申请时最先只分配“虚空间”，当读操作触发“页面故障”时，操作系统会先建立一个指向Zero Page的映射，并在页表中设置写故障位。当用户真正的去写这个页面时，才会分配真正的物理页面。在使用<code>mmap()</code>系统调用时，通过传递<code>MAP_ANONYMOUS</code>标志来申请匿名页面。</p>
+<p>利用Transparent Hugepage的机制实现段页结合的内存管理是在现有内存管理框架下最为简单易行的方式。透明大页实现时在常规的物理页面申请释放路径上增加了一层特殊处理，接口独立且相对完善。我们进行段页结合管理的核心思想是让透明大页申请时可以从我们管理的段式空间资源池中申请，调用我们的申请接口，而不是通用的申请释放接口。</p>
+<h4 id="透明大页的申请"><a href="#透明大页的申请" class="headerlink" title="透明大页的申请"></a>透明大页的申请</h4><p>以x86 3.8.0内核为例，进入主要的Page Fault入口在 arch/x86/mm/fault.c，函数 __do_page_fault，进过了一长串的统计与合法性检查后，进入体系结构无关的中，如下:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">fault = handle_mm_fault(mm, vma, address, flags);</div></pre></td></tr></table></figure>
+<p>进入透明大页的处理入口</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">pgd = pgd_offset(mm, address);</div><div class="line">pud = pud_alloc(mm, pgd, address);</div><div class="line"><span class="keyword">if</span> (!pud)</div><div class="line">    <span class="keyword">return</span> VM_FAULT_OOM;</div><div class="line">pmd = pmd_alloc(mm, pud, address);</div><div class="line"><span class="keyword">if</span> (!pmd)</div><div class="line">    <span class="keyword">return</span> VM_FAULT_OOM;</div><div class="line"><span class="keyword">if</span> (pmd_none(*pmd) &amp;&amp; transparent_hugepage_enabled(vma)) &#123;</div><div class="line">    <span class="keyword">if</span> (!vma-&gt;vm_ops)</div><div class="line">        <span class="keyword">return</span> do_huge_pmd_anonymous_page(mm, vma, address,</div><div class="line">                          pmd, flags);</div><div class="line">&#125; <span class="keyword">else</span> &#123;</div><div class="line"><span class="comment">// more code</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这里我们可以看出，进入透明大页处理的3个先决条件。</p>
+<ul>
+<li>pmd_none(*pmd) 大页的页表标志是放在PMD的，只有还没有初始化PMD的页面才有资格成为大页。</li>
+<li>transparent_hugepage_enabled(vma) 根据vma判断透明大页是否开启。</li>
+<li>(!vma-&gt;vm_ops) 代表了匿名页面，只有匿名页面才可以用透明大页实现。</li>
+</ul>
+<p>进入 <code>do_huge_pmd_anonymous_page</code> 函数后，进行核心的透明大页申请处理。</p>
+<p>首先判断虚空间是否满足条件，只有当缺页地址所在的虚空间还有超过一个大页的大小时，才会真正进入大页处理流程。判断条件如下:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> (haddr &gt;= vma-&gt;vm_start &amp;&amp; haddr + HPAGE_PMD_SIZE &lt;= vma-&gt;vm_end) &#123;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>后面一个关键的判断是:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> (!(flags &amp; FAULT_FLAG_WRITE) &amp;&amp; transparent_hugepage_use_zero_page()) &#123;&#125;</div></pre></td></tr></table></figure>
+<p>如果是读故障进来的，则说明触发缺页的操作是读指令，同时启用了zero page功能的话，应当使用zero page来完成该次映射。这是符合Linux通用的页面管理规范的。<br>首次是读的页面没有必要建立一个新的页面，指向zero page即可。但是大页需要有专用的zero page实现。</p>
+<p>在后面可以看到关键的大页申请函数：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">page = alloc_hugepage_vma(transparent_hugepage_defrag(vma),</div><div class="line">                            vma, haddr, numa_node_id(), <span class="number">0</span>);</div></pre></td></tr></table></figure>
+<p>然后再调用如下接口对申请到的大页page进行设置：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">__do_huge_pmd_anonymous_page(mm, vma, haddr, pmd,page)</div></pre></td></tr></table></figure>
+<p>另外在 <code>do_huge_pmd_anonymous_page</code> 函数中，还需要针对不满足大页条件的情况进行处理，主要是需要调用<code>handle_pte_fault</code>接口。</p>
+<h4 id="透明大页的释放"><a href="#透明大页的释放" class="headerlink" title="透明大页的释放"></a>透明大页的释放</h4><p>透明大页在申请时是一个compound page类型，这里有必要先说明一下compound page的含义：</p>
+<ul>
+<li>order大于０的page是compound page.</li>
+<li>第一个页面称之为”head page”.</li>
+<li>第一个页面后面的页面称之为 “tail pages”.</li>
+<li>所有的页面都有PG_compound 标志.</li>
+<li>所有的tail pages都有指向head page的指针.</li>
+</ul>
+<p>初始化一个compound page可以在 <code>mm/page_alloc.c</code>中看到<code>prep_compound_page</code>函数。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">prep_compound_page</span><span class="params">(<span class="keyword">struct</span> page *page, <span class="keyword">unsigned</span> <span class="keyword">long</span> order)</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">int</span> i;</div><div class="line">    <span class="keyword">int</span> nr_pages = <span class="number">1</span> &lt;&lt; order;</div><div class="line"></div><div class="line">    set_compound_page_dtor(page, free_compound_page);</div><div class="line">    set_compound_order(page, order);</div><div class="line">    __SetPageHead(page);</div><div class="line">    <span class="keyword">for</span> (i = <span class="number">1</span>; i &lt; nr_pages; i++) &#123;</div><div class="line">        <span class="keyword">struct</span> page *p = page + i;</div><div class="line">        __SetPageTail(p);</div><div class="line">        set_page_count(p, <span class="number">0</span>);</div><div class="line">        p-&gt;first_page = page;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>注意其中的接口 <code>set_compound_page_dtor</code>，dtor是page中一个用于释放操作的关键函数指针，可以看到<code>free_compound_page</code>是这类组合页面的析构函数<code>dtor</code>。<br>可以在 <code>mm/swap.c</code>  中看到<code>dtor</code>的用法：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">static</span> <span class="keyword">void</span> __put_compound_page(<span class="keyword">struct</span> page *page) &#123;</div><div class="line">   compound_page_dtor *dtor;</div><div class="line">   __page_cache_release(page);</div><div class="line">   dtor = get_compound_page_dtor(page);</div><div class="line">   (*dtor)(page);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在释放操作进行时会调用这个dtor接口。这是后续实现自定义透明大页释放的关键接口。</p>
+<h4 id="hugetlbfs大页的申请"><a href="#hugetlbfs大页的申请" class="headerlink" title="hugetlbfs大页的申请"></a>hugetlbfs大页的申请</h4><p>hugetlbfs的大页是需要预留的，或者在开机时通过cmdline参数<code>hugepages=XXX</code>来设置。<br>预留hugetlbfs大页时在 mm/hugetlb.c 中的如下接口申请:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">struct</span> page *<span class="title">alloc_fresh_huge_page_node</span><span class="params">(<span class="keyword">struct</span> hstate *h, <span class="keyword">int</span> nid)</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">struct</span> page *page;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (h-&gt;order &gt;= MAX_ORDER)</div><div class="line">        <span class="keyword">return</span> <span class="literal">NULL</span>;</div><div class="line"></div><div class="line">    page = alloc_pages_exact_node(nid,</div><div class="line">        htlb_alloc_mask|__GFP_COMP|__GFP_THISNODE|</div><div class="line">                        __GFP_REPEAT|__GFP_NOWARN,</div><div class="line">        huge_page_order(h));</div><div class="line">    <span class="keyword">if</span> (page) &#123;</div><div class="line">        <span class="keyword">if</span> (arch_prepare_hugepage(page)) &#123;</div><div class="line">            __free_pages(page, huge_page_order(h));</div><div class="line">            <span class="keyword">return</span> <span class="literal">NULL</span>;</div><div class="line">        &#125;</div><div class="line">        prep_new_huge_page(h, page, nid);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> page;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>初始化一个预留大页，注意接口 <code>set_compound_page_dtor</code>，这里设置了释放时需要调用的函数 <code>free_huge_page</code>。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">prep_new_huge_page</span><span class="params">(<span class="keyword">struct</span> hstate *h, <span class="keyword">struct</span> page *page, <span class="keyword">int</span> nid)</span></span></div><div class="line">&#123;</div><div class="line">    INIT_LIST_HEAD(&amp;page-&gt;lru);</div><div class="line">    set_compound_page_dtor(page, free_huge_page);</div><div class="line">    spin_lock(&amp;hugetlb_lock);</div><div class="line">    set_hugetlb_cgroup(page, <span class="literal">NULL</span>);</div><div class="line">    h-&gt;nr_huge_pages++;</div><div class="line">    h-&gt;nr_huge_pages_node[nid]++;</div><div class="line">    spin_unlock(&amp;hugetlb_lock);</div><div class="line">    put_page(page); <span class="comment">/* free it into the hugepage allocator */</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>释放函数<code>free_huge_page</code>只是从预留大页资源里面释放，将页面置为可被申请的状态，并不是真正的释放预留的大页资源。<br>释放预留大页资源的接口在<code>set_max_huge_pages</code>.</p>
+<p>预留好大页后，使用接口<code>alloc_huge_page</code>申请大页页面。</p>
+<h4 id="透明大页使用静态大页的空间"><a href="#透明大页使用静态大页的空间" class="headerlink" title="透明大页使用静态大页的空间"></a>透明大页使用静态大页的空间</h4><p>理论上，透明大页使用预留的静态大页的空间是完全可能的，这里我们先做一个简单的实现。<br><code>mm/hugetlb.c</code>中的<code>alloc_huge_page</code>有些过于复杂，我们实现一套简单的申请释放接口来验证思路：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">struct</span> page *<span class="title">alloc_huge_page_thp</span><span class="params">(<span class="keyword">struct</span> vm_area_struct *vma, <span class="keyword">unsigned</span> <span class="keyword">long</span> addr)</span> </span>&#123;</div><div class="line">    <span class="keyword">struct</span> hstate *h = &amp;default_hstate;</div><div class="line">    <span class="keyword">struct</span> page * page;</div><div class="line">    spin_lock(&amp;hugetlb_lock);</div><div class="line">    page = dequeue_huge_page_node(h,<span class="number">0</span>);</div><div class="line">    spin_unlock(&amp;hugetlb_lock);</div><div class="line">    <span class="keyword">if</span> (page) &#123;</div><div class="line">        set_compound_page_dtor(page, free_huge_page_thp);</div><div class="line">        <span class="keyword">return</span> page;</div><div class="line">    &#125; <span class="keyword">else</span></div><div class="line">        <span class="keyword">return</span> ERR_PTR(-ENOSPC);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">free_huge_page_thp</span><span class="params">(<span class="keyword">struct</span> page *page)</span> </span>&#123;</div><div class="line">    <span class="keyword">struct</span> hstate *h = &amp;default_hstate;</div><div class="line">    set_page_private(page, <span class="number">0</span>);</div><div class="line">    page-&gt;mapping = <span class="literal">NULL</span>;</div><div class="line">    BUG_ON(page_count(page));</div><div class="line">    BUG_ON(page_mapcount(page));</div><div class="line">    spin_lock(&amp;hugetlb_lock);</div><div class="line">    enqueue_huge_page(h, page);</div><div class="line">    spin_unlock(&amp;hugetlb_lock);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>可以在<code>alloc_hugepage_vma</code> 接口中调用我们实现的<code>alloc_huge_page_thp</code>函数，返回申请到的页面即可。另外，还需要修改<br><code>__do_huge_pmd_anonymous_page</code>函数中的<code>page_add_new_anon_rmap</code>方法，不能使用这个方法设置rmap，需要使用<code>hugepage_add_new_anon_rmap</code>。<br>如果使用原来的方法，会改变<code>page-&gt;lru</code>，使得静态大页的申请释放接口失效。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/kernel/" rel="tag">#kernel</a>
+          
+            <a href="/tags/huge-page/" rel="tag">#huge page</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/03/05/kvm-paravirt/" rel="next" title="kvm内核调试小记">
+                <i class="fa fa-chevron-left"></i> kvm内核调试小记
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/03/12/vim-table-plugin/" rel="prev" title="vim rst table plugin">
+                vim rst table plugin <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="fire3" />
+          <p class="site-author-name" itemprop="name">fire3</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">35</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#序言"><span class="nav-number">1.</span> <span class="nav-text">序言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设计目标"><span class="nav-number">2.</span> <span class="nav-text">设计目标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方案"><span class="nav-number">3.</span> <span class="nav-text">方案</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#开机阶段预留方案"><span class="nav-number">3.1.</span> <span class="nav-text">开机阶段预留方案</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#段页结合设计方案"><span class="nav-number">3.2.</span> <span class="nav-text">段页结合设计方案</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#透明大页的申请"><span class="nav-number">3.3.</span> <span class="nav-text">透明大页的申请</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#透明大页的释放"><span class="nav-number">3.4.</span> <span class="nav-text">透明大页的释放</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#hugetlbfs大页的申请"><span class="nav-number">3.5.</span> <span class="nav-text">hugetlbfs大页的申请</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#透明大页使用静态大页的空间"><span class="nav-number">3.6.</span> <span class="nav-text">透明大页使用静态大页的空间</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">fire3</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

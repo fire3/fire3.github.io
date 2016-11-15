@@ -1,0 +1,1404 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="fire3's notes">
+<meta property="og:url" content="http://fire3.xyz/index.html">
+<meta property="og:site_name" content="fire3's notes">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="fire3's notes">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://fire3.xyz/"/>
+
+  <title> fire3's notes </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left 
+   page-home 
+ ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">fire3's notes</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+  <section id="posts" class="posts-expand">
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/11/15/compile-aria2-for-arm/" itemprop="url">
+                  compile aria2 for arm
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-11-15T08:01:22+08:00" content="2016-11-15">
+              2016-11-15
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="准备编译环境"><a href="#准备编译环境" class="headerlink" title="准备编译环境"></a>准备编译环境</h1><p>目标处理器是Marvell的ARMADA 375，双核，具有FPU，所以采用带Hard float的工具链。</p>
+<p>下载工具栏：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">mkdir ~/toolchain</div><div class="line">cd toolchain</div><div class="line">wget https://releases.linaro.org/14.11/components/toolchain/binaries/arm-linux-gnueabi/gcc-linaro-4.9-2014.11-x86_64_arm-linux-gnueabi.tar.xz</div><div class="line">wget https://releases.linaro.org/14.11/components/toolchain/binaries/arm-linux-gnueabi/runtime-linaro-gcc4.9-2014.11-arm-linux-gnueabi.tar.xz</div><div class="line">wget https://releases.linaro.org/14.11/components/toolchain/binaries/arm-linux-gnueabi/sysroot-linaro-eglibc-gcc4.9-2014.11-arm-linux-gnueabi.tar.xz</div><div class="line">tar xf gcc-linaro-4.9-2014.11-x86_64_arm-linux-gnueabi.tar.xz</div><div class="line">tar xf sysroot-linaro-eglibc-gcc4.9-2014.11-arm-linux-gnueabi.tar.xz</div><div class="line"></div><div class="line"></div><div class="line">echo &apos;export PATH=$PATH:/home/fire3/toolchain/gcc-linaro-4.9-2014.11-x86_64_arm-linux-gnueabihf/bin&apos; &gt;&gt; ~/.bashrc</div><div class="line">. .bashrc</div></pre></td></tr></table></figure>
+<p>设置sysroot目录<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">arm-linux-gnueabihf-gcc -print-sysroot</div><div class="line">cd toolchain</div><div class="line">ln -s `arm-linux-gnueabihf-gcc -print-sysroot` sysroot</div></pre></td></tr></table></figure></p>
+<h1 id="Nettle编译"><a href="#Nettle编译" class="headerlink" title="Nettle编译"></a>Nettle编译</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">wget https://ftp.gnu.org/gnu/nettle/nettle-3.1.tar.gz</div><div class="line">tar xf nettle-3.1.tar.gz</div><div class="line">cd nettle-3.1</div><div class="line">PKG_CONFIG_PATH=/home/fire3/toolchain/sysroot/lib/pkgconfig ./configure --host=arm-linux-gnueabihf --prefix=/home/fire3/toolchain/sysroot  --with-sysroot=/home/fire3/toolchain/sysroot --enable-arm-neon  --enable-mini-gmp</div><div class="line">make</div><div class="line">make install</div></pre></td></tr></table></figure>
+<h1 id="Gnutls编译"><a href="#Gnutls编译" class="headerlink" title="Gnutls编译"></a>Gnutls编译</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">wget http://www.ring.gr.jp/pub/net/gnupg/gnutls/v3.4/gnutls-3.4.0.tar.xz</div><div class="line">tar xf gnutls-3.4.0.tar.xz</div><div class="line">cd gnutls-3.4.0</div><div class="line">PKG_CONFIG_PATH=/home/fire3/toolchain/sysroot/lib/pkgconfig ./configure --host=arm-linux-gnueabihf  --with-sysroot=/home/fire3/toolchain/sysroot --with-nettle-mini --with-included-libtasn1 --without-p11-kit --enable-static --prefix=/home/fire3/toolchain/sysroot</div><div class="line">make</div><div class="line">make install</div></pre></td></tr></table></figure>
+<h1 id="GMP"><a href="#GMP" class="headerlink" title="GMP"></a>GMP</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">wget https://ftp.gnu.org/gnu/gmp/gmp-6.1.0.tar.bz2</div><div class="line">tar xf gmp-6.1.0.tar.bz2 </div><div class="line">cd gmp-6.1.0</div><div class="line">PKG_CONFIG_PATH=/home/fire3/toolchain/sysroot/lib/pkgconfig ./configure --host=arm-linux-gnueabihf --with-sysroot=/home/fire3/toolchain/sysroot --prefix=/home/fire3/toolchain/sysroot</div><div class="line">make install</div></pre></td></tr></table></figure>
+<h1 id="Libz"><a href="#Libz" class="headerlink" title="Libz"></a>Libz</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">wget http://zlib.net/zlib-1.2.8.tar.gz</div><div class="line">tar xf zlib-1.2.8.tar.gz </div><div class="line">cd zlib-1.2.8</div><div class="line">CC=arm-linux-gnueabihf-gcc ./configure --prefix=/home/fire3/toolchain/sysroot</div><div class="line">make install</div></pre></td></tr></table></figure>
+<h1 id="LibXML2"><a href="#LibXML2" class="headerlink" title="LibXML2"></a>LibXML2</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">wget ftp://xmlsoft.org/libxml2/libxml2-git-snapshot.tar.gz</div><div class="line">tar xf libxml2-git-snapshot.tar.gz </div><div class="line">cd libxml2-2.9.4/</div><div class="line">PKG_CONFIG_PATH=/home/fire3/toolchain/sysroot/lib/pkgconfig ./configure --host=arm-linux-gnueabihf --with-sysroot=/home/fire3/toolchain/sysroot --prefix=/home/fire3/toolchain/sysroot  --without-python</div><div class="line">make install</div></pre></td></tr></table></figure>
+<h1 id="Aria2编译"><a href="#Aria2编译" class="headerlink" title="Aria2编译"></a>Aria2编译</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">PKG_CONFIG_PATH=/home/fire3/toolchain/sysroot/lib/pkgconfig ./configure --host=arm-linux-gnueabihf</div><div class="line">make</div></pre></td></tr></table></figure>
+<p>静态版本因为pthread的原因无法编译成功。动态版本可以用如下命令查看其动态库:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">$ arm-linux-gnueabihf-readelf -a ./aria2c | grep Shared</div><div class="line"> 0x00000001 (NEEDED)                     Shared library: [libxml2.so.2]</div><div class="line"> 0x00000001 (NEEDED)                     Shared library: [libdl.so.2]</div><div class="line"> 0x00000001 (NEEDED)                     Shared library: [libgnutls.so.30]</div><div class="line"> 0x00000001 (NEEDED)                     Shared library: [libz.so.1]</div><div class="line"> 0x00000001 (NEEDED)                     Shared library: [libhogweed.so.4]</div><div class="line"> 0x00000001 (NEEDED)                     Shared library: [libnettle.so.6]</div><div class="line"> 0x00000001 (NEEDED)                     Shared library: [libgmp.so.10]</div><div class="line"> 0x00000001 (NEEDED)                     Shared library: [libm.so.6]</div><div class="line"> 0x00000001 (NEEDED)                     Shared library: [libgcc_s.so.1]</div><div class="line"> 0x00000001 (NEEDED)                     Shared library: [libc.so.6]</div><div class="line"> 0x00000001 (NEEDED)                     Shared library: [ld-linux-armhf.so.3]</div></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/11/03/compile-dpdk/" itemprop="url">
+                  compile dpdk
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-11-03T11:08:47+08:00" content="2016-11-03">
+              2016-11-03
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="编译dpdk"><a href="#编译dpdk" class="headerlink" title="编译dpdk"></a>编译dpdk</h1><p>在x86_64 linux ubuntu 16.04环境下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">make install T=x86_64-native-linuxapp-gcc</div></pre></td></tr></table></figure>
+<p>如果需要查看详细输出，可以运行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">make install T=x86_64-native-linuxapp-gcc V=1</div></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/10/19/fix-grub2-install/" itemprop="url">
+                  fix grub2 install
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-10-19T15:57:49+08:00" content="2016-10-19">
+              2016-10-19
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>手里一台机器突然死机，重启后grub失灵了，于是费了一番周折恢复grub2。<br>先用光盘进入系统，然后打开terminal。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">sudo su -</div><div class="line">mkdir /mnt</div><div class="line">mount /dev/sda4 /mnt</div><div class="line">mount /dev/sda2 /mnt/boot</div><div class="line">mount -t proc proc /mnt/proc</div><div class="line">mount --bind /sys /mnt/sys</div><div class="line">mount --bind /dev /mnt/dev</div><div class="line">chroot /mnt</div></pre></td></tr></table></figure>
+<p>进入后，首先安装grub2时发现域名不能解析，设置了一下 /etc/resolv.conf，比照外面环境设置即可。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">echo &quot;nameserver 127.0.1.1&quot; &gt; /dev/resolv.conf</div></pre></td></tr></table></figure>
+<p>然后执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">apt install grub2</div><div class="line">parted /dev/sda set 1 bios_grub on</div><div class="line">grub-install --target=i386-pc /dev/sda</div></pre></td></tr></table></figure>
+<p>执行正常没有报错。重启后进入了久违的grub界面。但是又有了新问题，进不去系统了。卡在了systemd的dev-disk服务。<br>systemd的该服务超时，进入维护模式，后来想到是不是/etc/fstab由于分区的修改导致uuid发生了变化，所以修改了/etc/fstab，不使用uuid了，直接用/dev/sdaX来标示分区。<br>重启，解决问题！回到了我的系统。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/09/09/centos7-firewalld-with-pptpd/" itemprop="url">
+                  centos7 firewalld with pptpd
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-09T07:19:23+08:00" content="2016-09-09">
+              2016-09-09
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Install pptpd with:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum -y install ppp pptpd</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"># pptpd settings</div><div class="line">echo &apos;localip 10.10.0.1&apos; &gt;&gt; /etc/pptpd.conf</div><div class="line">echo &apos;remoteip 10.10.0.100-199&apos; &gt;&gt; /etc/pptpd.conf</div><div class="line">echo &apos;ms-dns 8.8.8.8&apos; &gt;&gt; /etc/ppp/options.pptpd</div><div class="line">echo &apos;ms-dns 8.8.4.4&apos; &gt;&gt; /etc/ppp/options.pptpd</div><div class="line">echo &apos;USERNAME pptpd PASSWORD *&apos; &gt;&gt; /etc/ppp/chap-secrets</div><div class="line"></div><div class="line"></div><div class="line"># system ipv4 forward</div><div class="line">sysctl_file=/etc/sysctl.conf</div><div class="line">if grep -xq &apos;net.ipv4.ip_forward&apos; $sysctl_file; then</div><div class="line">sed -i.bak -r -e &quot;s/^.*net.ipv4.ip_forward.*/net.ipv4.ip_forward = 1/&quot; $sysctl_file</div><div class="line">else</div><div class="line">echo &apos;net.ipv4.ip_forward = 1&apos; &gt;&gt; $sysctl_file</div><div class="line">fi</div><div class="line"></div><div class="line">sysctl -p</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">firewall-cmd --permanent --new-service=pptpd</div><div class="line"></div><div class="line">cat &gt; /etc/firewalld/services/pptpd.xml&lt;&lt;EOF</div><div class="line">&lt;?xml version=<span class="string">"1.0"</span> encoding=<span class="string">"utf-8"</span>?&gt;</div><div class="line">&lt;service&gt;</div><div class="line">  &lt;port protocol=<span class="string">"tcp"</span> port=<span class="string">"1723"</span>/&gt;</div><div class="line">  &lt;/service&gt;</div><div class="line">EOF</div><div class="line"></div><div class="line">firewall-cmd --permanent --zone=public --add-service=pptpd</div><div class="line">firewall-cmd --permanent --zone=public --add-masquerade</div><div class="line"></div><div class="line">firewall-cmd --permanent --direct --add-rule ipv4 filter INPUT 0 -p gre -j ACCEPT</div><div class="line">firewall-cmd --permanent --direct --add-rule ipv6 filter INPUT 0 -p gre -j ACCEPT</div><div class="line">firewall-cmd --reload</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"># start pptpd</div><div class="line">systemctl start pptpd</div><div class="line">systemctl enable pptpd.service</div></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/08/22/centos7-install-ffmpeg/" itemprop="url">
+                  centos7 install ffmpeg
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-22T02:49:29+08:00" content="2016-08-22">
+              2016-08-22
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Centos7 Install ffmpeg :</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sudo yum -y install http://li.nux.ro/download/nux/dextop/el7/x86_64/nux-dextop-release-0-5.el7.nux.noarch.rpm</div><div class="line">sudo yum install ffmpeg</div></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/08/09/high-light-current-in-gnome-terminal/" itemprop="url">
+                  high light current in gnome terminal
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-09T07:06:56+08:00" content="2016-08-09">
+              2016-08-09
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Tested in Ubuntu 16.04:</p>
+<p>edit  ~/.config/gtk-3.0/gtk.css</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">TerminalWindow .notebook tab:active &#123;</div><div class="line">        background-color: #b0c0f0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/08/09/install-jdk-from-tar/" itemprop="url">
+                  install jdk from tar
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-09T03:02:12+08:00" content="2016-08-09">
+              2016-08-09
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>place jdk1.8.0_101 to /opt</p>
+<p>modify .bashrc:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#set oracle jdk environment</span></div><div class="line"><span class="built_in">export</span> JAVA_HOME=/opt/jdk1.8.0_101</div><div class="line"><span class="built_in">export</span> JRE_HOME=<span class="variable">$&#123;JAVA_HOME&#125;</span>/jre  </div><div class="line"><span class="built_in">export</span> CLASSPATH=.:<span class="variable">$&#123;JAVA_HOME&#125;</span>/lib:<span class="variable">$&#123;JRE_HOME&#125;</span>/lib  </div><div class="line"><span class="built_in">export</span> PATH=<span class="variable">$&#123;JAVA_HOME&#125;</span>/bin:<span class="variable">$PATH</span></div></pre></td></tr></table></figure>
+<p>execute:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">source</span> .bashrc</div><div class="line"></div><div class="line">sudo update-alternatives --install /usr/bin/java java /opt/jdk1.8.0_101/bin/java 300  </div><div class="line">sudo update-alternatives --install /usr/bin/javac javac /opt/jdk1.8.0_101/bin/javac 300  </div><div class="line">sudo update-alternatives --install /usr/bin/jar jar /opt/jdk1.8.0_101/bin/jar 300   </div><div class="line">sudo update-alternatives --install /usr/bin/javah javah /opt/jdk1.8.0_101/bin/javah 300   </div><div class="line">sudo update-alternatives --install /usr/bin/javap javap /opt/jdk1.8.0_101/bin/javap 300</div><div class="line">sudo update-alternatives --config java</div></pre></td></tr></table></figure>
+<p>verify java installation:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">java -version</div></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/07/01/coreos-compile/" itemprop="url">
+                  coreos compile
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-01T08:47:16+08:00" content="2016-07-01">
+              2016-07-01
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>紧跟云计算潮流，从底层了解一下CoreOS系统，先从编译CoreOS系统做起!</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/07/01/coreos-compile/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/06/30/merlin-custom-ddns-with-aliyun/" itemprop="url">
+                  merlin custom ddns with aliyun
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-06-30T04:47:51+08:00" content="2016-06-30">
+              2016-06-30
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>首先要感谢opkg这个工具，让我们可以方便的在路由器上使用python和pip。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ opkg install python-pip</div><div class="line">$ pip install aliyun-python-sdk-alidns</div></pre></td></tr></table></figure>
+<p>安装好后先写一个脚本找到自己域名的RecordID。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#!/opt/bin/python</span></div><div class="line"></div><div class="line"><span class="keyword">from</span> aliyunsdkcore <span class="keyword">import</span> client</div><div class="line"><span class="keyword">from</span> aliyunsdkalidns.request.v20150109 <span class="keyword">import</span> DescribeDomainRecordsRequest</div><div class="line"><span class="keyword">from</span> aliyunsdkalidns.request.v20150109 <span class="keyword">import</span> UpdateDomainRecordRequest</div><div class="line"><span class="keyword">import</span> sys</div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__ ==<span class="string">'__main__'</span>:</div><div class="line">        clt = client.AcsClient(<span class="string">'Key........'</span>,<span class="string">'Secret..................'</span>,</div><div class="line">                                <span class="string">'cn-hangzhou'</span>)</div><div class="line">        rquest=DescribeDomainRecordsRequest.DescribeDomainRecordsRequest()</div><div class="line">        request.set_accept_format(<span class="string">'json'</span>)</div><div class="line">        request.set_DomainName(<span class="string">'fire3.xyz'</span>)</div><div class="line">        result = clt.do_action(request)</div><div class="line">        <span class="keyword">print</span> result</div></pre></td></tr></table></figure></p>
+<p>然后写一个小脚本，放在 /jffs/scripts/home.py:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">#!/opt/bin/python</span></div><div class="line"></div><div class="line"><span class="keyword">from</span> aliyunsdkcore <span class="keyword">import</span> client</div><div class="line"><span class="keyword">from</span> aliyunsdkalidns.request.v20150109 <span class="keyword">import</span> DescribeDomainRecordsRequest</div><div class="line"><span class="keyword">from</span> aliyunsdkalidns.request.v20150109 <span class="keyword">import</span> UpdateDomainRecordRequest</div><div class="line"><span class="keyword">import</span> sys</div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__ ==<span class="string">'__main__'</span>:</div><div class="line">        clt = client.AcsClient(<span class="string">'Key........'</span>,<span class="string">'Secret..................'</span>,</div><div class="line">                                <span class="string">'cn-hangzhou'</span>)</div><div class="line">        request=UpdateDomainRecordRequest.UpdateDomainRecordRequest()</div><div class="line">        request.set_RecordId(<span class="number">83035279</span>)</div><div class="line">        request.set_Value(sys.argv[<span class="number">1</span>])</div><div class="line">        request.set_RR(<span class="string">'home'</span>)</div><div class="line">        request.set_Type(<span class="string">'A'</span>)</div><div class="line">        request.set_TTL(<span class="string">'600'</span>)</div><div class="line">        result = clt.do_action(request)</div></pre></td></tr></table></figure>
+<p>再写一个小脚本/jffs/scripts/ddns-start调用上面的python:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">#!/bin/sh</div><div class="line"></div><div class="line">IP=`ip addr show ppp0 | grep &quot;inet\b&quot; | awk &apos;&#123;print $2&#125;&apos; | cut -d/ -f1`</div><div class="line"></div><div class="line">if [ X&quot;$IP&quot; == X&quot;&quot; ]</div><div class="line">then</div><div class="line">/sbin/ddns_custom_updated 0</div><div class="line">exit -1</div><div class="line">fi</div><div class="line"></div><div class="line">/jffs/scripts/home.py $IP</div><div class="line"></div><div class="line">/sbin/ddns_custom_updated 1</div></pre></td></tr></table></figure>
+<p>大功告成。注意 /jffs/scripts/ddns-start是默认的ddns设置脚本，名字不可以变动。<a href="https://github.com/RMerl/asuswrt-merlin/wiki/User-scripts" target="_blank" rel="external">见这里</a></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/06/24/make-debug/" itemprop="url">
+                  make debug
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-06-24T08:25:04+08:00" content="2016-06-24">
+              2016-06-24
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>try the below method:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ make V=1</div><div class="line">$ make VERBOSE=1</div><div class="line">$ make SHELL=&apos;sh -x&apos;</div></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+  </section>
+
+  
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+
+          
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="fire3" />
+          <p class="site-author-name" itemprop="name">fire3</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">35</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">fire3</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>
