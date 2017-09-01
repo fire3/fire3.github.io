@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <link rel="dns-prefetch" href="http://www.fire3.xyz">
+  <title>Latex 中文米字格实现分析 | fire3&#39;s note</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="上一回制作了中文米字格，初次接触Tikz，发现有必要深入了解一下，万一后面还有需要呢，比如，制作拼音格，制作描红格等等。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Latex 中文米字格实现分析">
+<meta property="og:url" content="http://www.fire3.xyz/2017/01/06/tikz-grid/index.html">
+<meta property="og:site_name" content="fire3's note">
+<meta property="og:description" content="上一回制作了中文米字格，初次接触Tikz，发现有必要深入了解一下，万一后面还有需要呢，比如，制作拼音格，制作描红格等等。">
+<meta property="og:image" content="http://www.fire3.xyz/images/tikz-node-anchor.png">
+<meta property="og:image" content="http://www.fire3.xyz/images/tikz-2.png">
+<meta property="og:image" content="http://www.fire3.xyz/images/tikz-3.png">
+<meta property="og:updated_time" content="2017-08-18T00:48:31.749Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Latex 中文米字格实现分析">
+<meta name="twitter:description" content="上一回制作了中文米字格，初次接触Tikz，发现有必要深入了解一下，万一后面还有需要呢，比如，制作拼音格，制作描红格等等。">
+<meta name="twitter:image" content="http://www.fire3.xyz/images/tikz-node-anchor.png">
+  
+    <link rel="alternative" href="/atom.xml" title="fire3&#39;s note" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/main.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+      <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="null" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">fire3</a></h1>
+		</hgroup>
+
+		
+
+		<nav class="header-menu">
+			<ul>
+			
+				<li><a href="/">主页</a></li>
+	        
+				<li><a href="/tags/随笔">随笔</a></li>
+	        
+			</ul>
+		</nav>
+		<nav class="header-smart-menu">
+	        
+    		
+    			
+    			<a class="js-smart-menu" data-idx="0" href="javascript:void(0)">所有文章</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="1" href="javascript:void(0)">标签</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="2" href="javascript:void(0)">友链</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="3" href="javascript:void(0)">关于我</a>
+    			
+    			
+            
+		</nav>
+		<nav class="header-nav">
+			<div class="social">
+				
+					<a class="github" target="_blank" href="#" title="github">github</a>
+		        
+					<a class="weibo" target="_blank" href="#" title="weibo">weibo</a>
+		        
+					<a class="rss" target="_blank" href="#" title="rss">rss</a>
+		        
+					<a class="zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
+		        
+			</div>
+		</nav>
+	</header>		
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"><i class="icon-list"></i></div>
+  		<h1 class="header-author js-mobile-header hide">fire3</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				
+					<img src="null" class="js-avatar">
+				
+			</div>
+			<hgroup>
+			  <h1 class="header-author">fire3</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/tags/随笔">随笔</a></li>
+		        
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="#" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="#" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="#" title="rss">rss</a>
+			        
+						<a class="zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap">
+        <article id="post-tikz-grid" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Latex 中文米字格实现分析
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>上一回制作了中文米字格，初次接触Tikz，发现有必要深入了解一下，万一后面还有需要呢，比如，制作拼音格，制作描红格等等。</p>
+<a id="more"></a>
+<p>网上的代码示例如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">% \grid for a single character</div><div class="line">\newcommand\grid[1]&#123;%</div><div class="line">\fontsize&#123;160&#125;&#123;160&#125;</div><div class="line">\begin&#123;tikzpicture&#125;[baseline=(char.base)]</div><div class="line">  \path[use as bounding box]</div><div class="line">    (0,0) rectangle (1em,1em);</div><div class="line">  \draw[help lines,step=0.5em]</div><div class="line">    (0,0) grid (1em,1em);</div><div class="line">  \draw[help lines,dashed]</div><div class="line">    (0,0) -- (1em,1em)  (0,1em) -- (1em,0);</div><div class="line">  \node[inner sep=0pt,anchor=base west]</div><div class="line">    (char) at (0em,\gridraiseamount) &#123;#1&#125;;</div><div class="line">\end&#123;tikzpicture&#125;&#125;                                                                                                                        </div><div class="line"> </div><div class="line">% \gridraiseamount is a font-specific value</div><div class="line">\newcommand\gridraiseamount&#123;0.12em&#125;</div></pre></td></tr></table></figure>
+<p>我们先就这个片段搞搞清楚。</p>
+<p>首先是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">\begin&#123;tikzpicture&#125;[baseline=(char.base)]</div></pre></td></tr></table></figure>
+<p>baseline是tikzpicture的一个option， 决定了这幅图在垂直方向上的基准位置。<br>char则是后面代码中node的名称，node是tikzpicture中的一个子图片。char.base是一个坐标位置，指示先绘制完node以后，计算出char.base这个锚点的位置，然后将baseline设置到这个点的纵坐标位置上。可以理解为baseline与这个点在垂直方向上一致。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">\path[use as bounding box] (0,0) rectangle (1em,1em);</div></pre></td></tr></table></figure>
+<p>这里面 \path[use as bounding box]决定了这个tikzpicture的外围大小，这里设置成从1em大小的正方形。</p>
+<p>em是一个相对长度单位，相当于大写字母M的宽度，实际比M要更款一些，比如当前字体设置为100pt，那么em就是100pt，而M宽度略小于100pt。</p>
+<p>\path[use as bounding box] 可以简写为 \useasboundingbox ，效果相同。</p>
+<p>接下来是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">\draw[help lines,step=0.5em]</div><div class="line">  (0,0) grid (1em,1em);</div></pre></td></tr></table></figure>
+<p>help lines是一个style，可以修改，比如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">\tikzstyle help lines=[color=blue!50,very thin]</div><div class="line">\tikzstyle help lines=[color=red!50,thin]</div></pre></td></tr></table></figure>
+<p>\draw 则是绘制控制了，这里绘制了一个step=0.5em的grid，grid大小从（0,0）到(1em ,1em)，这一步画出了田字格。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">\draw[help lines,dashed]</div><div class="line">  (0,0) -- (1em,1em)  (0,1em) -- (1em,0);</div></pre></td></tr></table></figure>
+<p>这一步则是绘制出了两个斜45度交叉的虚线，并且style同样是help lines。</p>
+<p>最后绘制我们的字符，利用了一个node,如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">\node[inner sep=0pt,anchor=base west]</div><div class="line">  (char) at (0em,\gridraiseamount) &#123;#1&#125;;</div></pre></td></tr></table></figure>
+<p>这里需要掌握node，anchor的概念。node是一个sub picture，可以利用{}添加文字。anchor用于定位，首先确定选用哪一个anchor，然后用at确定该ahchor的位置。</p>
+<p>比如：</p>
+<p><img src="/images/tikz-node-anchor.png" alt=""></p>
+<p>这里第二个node，anchor在west，也就是Circle一词的最左边，把这个anchor放置在c.east，c是第一个node的名称，就是放在第一个node的“东边”，即右边。</p>
+<p>回头看我们这个例子，anchor选择了base west，定位到(0em,0.12em)的位置，其中0.12em是稍微调整了一下，使得汉字在米字格里面显得更加居中。用如下的代码也可以实现类似的效果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">\node[inner sep=0pt,anchor=south west]</div><div class="line">  (char) at (0em,0.05em) &#123;#1&#125;;</div></pre></td></tr></table></figure>
+<p>选用south west的anchor，并适当调整位置即可。</p>
+<p>最终效果如下：</p>
+<p><img src="/images/tikz-2.png" alt=""></p>
+<p>接下来，我们准备再改造一下这个grid宏，让它可以加上拼音：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">\newcommand\pygrid[1]&#123;%</div><div class="line">\fontsize&#123;100&#125;&#123;100&#125;</div><div class="line">\begin&#123;tikzpicture&#125;[baseline=(char.base)]</div><div class="line">  \tikzstyle help lines=[color=red!50,thin]</div><div class="line">  \path[use as bounding box]</div><div class="line">    (0,0) rectangle (1em,1.6em);</div><div class="line">  \draw[help lines,step=0.5em]</div><div class="line">    (0,0) grid (1em,1em);</div><div class="line">  \draw[help lines,dashed]</div><div class="line">    (0,0) -- (1em,1em)  (0,1em) -- (1em,0);</div><div class="line">    \draw[help lines] (0em,1em) -- (0em,1.6em)</div><div class="line">    (0em,1.6em) -- (1em,1.6em) (1em,1.6em) -- (1em,1em);</div><div class="line">    \draw[help lines,dashed] (0em,1.2em) -- (1em,1.2em);</div><div class="line">    \draw[help lines,dashed] (0em,1.4em) -- (1em,1.4em);</div><div class="line">  \node[inner sep=0pt,anchor=south west]</div><div class="line">    (char) at (0em,0.06em) &#123;#1&#125;;</div><div class="line">\end&#123;tikzpicture&#125;&#125;</div></pre></td></tr></table></figure>
+<p>这样就可以实现这样的效果了：</p>
+<p><img src="/images/tikz-3.png" alt=""></p>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2017/01/06/tikz-grid/" class="archive-article-date">
+  	<time datetime="2017-01-06T08:30:38.000Z" itemprop="datePublished"><i class="icon-clock"></i>2017-01-06</time>
+</a>
+      
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2017/02/15/gccgo-crosscompile/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          gccgo crosscompile
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/01/05/chinese-flash-card-for-kids/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">中文字卡快速制作</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">Share to: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+	    <a class="jiathis_button_twitter"></a>
+	    <a class="jiathis_button_plus"></a> 
+	    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="//v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+
+
+
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2017 fire3
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    <script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: false,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false,
+		root: "/",
+		innerArchive: true
+	}
+</script>
+
+<script src="/./main.js"></script>
+
+
+    
+<div class="tools-col">
+  <ul class="btn-wrap">
+    
+      <li class="chose" data-hook="tools-section-all"><span class="text">全部</span><i class="icon-book"></i></li>
+    
+    
+      <li data-hook="tools-section-tag"><span class="text">标签</span><i class="icon-price-tags"></i></li>
+    
+    
+      <li data-hook="tools-section-friends"><span class="text">友链</span><i class="icon-link"></i></li>
+    
+    
+      <li data-hook="tools-section-me"><span class="text">我</span><i class="icon-smile"></i></li>
+    
+  </ul>
+  <div class="tools-wrap">
+    
+    	<section class="tools-section tools-section-all chose">
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-tag">
+    			<div class="widget tagcloud" id="js-tagcloud">
+    				<a href="/tags/android/" style="font-size: 20px;">android</a> <a href="/tags/aria2/" style="font-size: 10px;">aria2</a> <a href="/tags/arm/" style="font-size: 10px;">arm</a> <a href="/tags/container/" style="font-size: 10px;">container</a> <a href="/tags/coreos/" style="font-size: 15px;">coreos</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/git/" style="font-size: 17.5px;">git</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/huge-page/" style="font-size: 10px;">huge page</a> <a href="/tags/json/" style="font-size: 10px;">json</a> <a href="/tags/kernel/" style="font-size: 15px;">kernel</a> <a href="/tags/kvm/" style="font-size: 12.5px;">kvm</a> <a href="/tags/latex/" style="font-size: 10px;">latex</a> <a href="/tags/linux/" style="font-size: 17.5px;">linux</a> <a href="/tags/redmine/" style="font-size: 10px;">redmine</a> <a href="/tags/rkt/" style="font-size: 10px;">rkt</a> <a href="/tags/shadowsocks/" style="font-size: 10px;">shadowsocks</a> <a href="/tags/sphinx/" style="font-size: 10px;">sphinx</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a>
+    			</div>
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-friends">
+  		
+  			<div class="friends-wrap" id="js-friends">
+  			
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">友情链接1</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">友情链接2</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">友情链接3</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">友情链接4</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">友情链接5</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">友情链接6</a>
+  	        
+  	        </div>
+  		
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-me">
+  	  	
+  	  		<div class="aboutme-wrap" id="js-aboutme">很惭愧&lt;br&gt;&lt;br&gt;只做了一点微小的工作&lt;br&gt;谢谢大家</div>
+  	  	
+    	</section>
+    
+  </div>
+  
+</div>
+    <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+  </div>
+</body>
+</html>

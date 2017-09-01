@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <link rel="dns-prefetch" href="http://www.fire3.xyz">
+  <title>container related open source projects | fire3&#39;s note</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="This post is about container related open source projects.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="container related open source projects">
+<meta property="og:url" content="http://www.fire3.xyz/2016/12/27/container-related-open-source-projects/index.html">
+<meta property="og:site_name" content="fire3's note">
+<meta property="og:description" content="This post is about container related open source projects.">
+<meta property="og:updated_time" content="2017-08-18T00:48:31.749Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="container related open source projects">
+<meta name="twitter:description" content="This post is about container related open source projects.">
+  
+    <link rel="alternative" href="/atom.xml" title="fire3&#39;s note" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/main.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+      <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="null" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">fire3</a></h1>
+		</hgroup>
+
+		
+
+		<nav class="header-menu">
+			<ul>
+			
+				<li><a href="/">主页</a></li>
+	        
+				<li><a href="/tags/随笔">随笔</a></li>
+	        
+			</ul>
+		</nav>
+		<nav class="header-smart-menu">
+	        
+    		
+    			
+    			<a class="js-smart-menu" data-idx="0" href="javascript:void(0)">所有文章</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="1" href="javascript:void(0)">标签</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="2" href="javascript:void(0)">友链</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="3" href="javascript:void(0)">关于我</a>
+    			
+    			
+            
+		</nav>
+		<nav class="header-nav">
+			<div class="social">
+				
+					<a class="github" target="_blank" href="#" title="github">github</a>
+		        
+					<a class="weibo" target="_blank" href="#" title="weibo">weibo</a>
+		        
+					<a class="rss" target="_blank" href="#" title="rss">rss</a>
+		        
+					<a class="zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
+		        
+			</div>
+		</nav>
+	</header>		
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"><i class="icon-list"></i></div>
+  		<h1 class="header-author js-mobile-header hide">fire3</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				
+					<img src="null" class="js-avatar">
+				
+			</div>
+			<hgroup>
+			  <h1 class="header-author">fire3</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/tags/随笔">随笔</a></li>
+		        
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="#" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="#" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="#" title="rss">rss</a>
+			        
+						<a class="zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap">
+        <article id="post-container-related-open-source-projects" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      container related open source projects
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>This post is about container related open source projects.</p>
+<a id="more"></a>
+<h1 id="Operating-System"><a href="#Operating-System" class="headerlink" title="Operating System"></a>Operating System</h1><h2 id="CoreOS"><a href="#CoreOS" class="headerlink" title="CoreOS"></a>CoreOS</h2><p>[coreOS][<a href="https://coreos.com/" target="_blank" rel="external">https://coreos.com/</a>]  is a new Linux distribution that has been re-architected to provide features needed to run modern infrastructure stacks. The strategies and architectures that influence CoreOS allow companies like Google, Facebook and Twitter to run their services at scale with high resilience.</p>
+<p>By default CoreOS is pre-configured with tools to run Linux containers and be distributed. A key feature is that the container runtime (e.g. Docker) is automatically configured on each CoreOS machine. Also CoreOS provides automatic OS updates which means you get all Updates per default and you don’t have to worry about old versions.</p>
+<p>On CoreOS you can use docker with fleet. Fleet is a distributed init system which presents your entire cluster as a single init system. You are able to start fleet units by using extended systemd unit files. With fleet you are able to run distributed containerized apps.</p>
+<p>A major benefit of running CoreOS is etcd. etcd is a distributed key value store which is used by many projects like Kubernetes, Cloud Foundry and many more. You can use etcd for simple service discovery and much more. Also major cloud providers offer CoreOS support.</p>
+<h2 id="RancherOS"><a href="#RancherOS" class="headerlink" title="RancherOS"></a>RancherOS</h2><p>[rancherOS][<a href="http://rancher.com/rancher-os/" target="_blank" rel="external">http://rancher.com/rancher-os/</a>]  is the smallest, easiest way to run Docker in production. Everything in RancherOS is a container managed by Docker. </p>
+<p>This includes system services such as udev and syslog. RancherOS is dramatically smaller than most traditional operating systems, because it only includes the services necessary to run Docker. By removing unnecessary libraries and services, requirements for security patches and other maintenance are dramatically reduced. This is possible because with Docker, users typically package all necessary libraries into their containers.</p>
+<p>Another way in which RancherOS is designed specifically for running Docker is that it always runs the latest version of Docker. This allows users to take advantage of the latest Docker capabilities and bug fixes.</p>
+<p>Like other minimalist Linux distributions, RancherOS boots incredibly quickly, generally in 5-10 seconds. Starting Docker containers is nearly instant, similar to starting any other process. This quickness is ideal for organizations adopting microservices and autoscaling.</p>
+<h1 id="Container-Tools"><a href="#Container-Tools" class="headerlink" title="Container Tools"></a>Container Tools</h1><h2 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h2><p>[Docker][<a href="https://www.docker.com/" target="_blank" rel="external">https://www.docker.com/</a>] is the world’s leading software containerization platform. Docker containers wrap a piece of software in a complete filesystem that contains everything needed to run: code, runtime, system tools, system libraries – anything that can be installed on a server. This guarantees that the software will always run the same, regardless of its environment.</p>
+<h2 id="Hypercontainer"><a href="#Hypercontainer" class="headerlink" title="Hypercontainer"></a>Hypercontainer</h2><p>[Hypercontainer][<a href="https://hypercontainer.io/" target="_blank" rel="external">https://hypercontainer.io/</a>] Hypervisor-agnostic Docker Runtime that allows you to run Docker images on any hypervisor (KVM, Xen, etc.).</p>
+<p>Technically speaking,</p>
+<p>HyperContainer = Hypervisor + Kernel + Docker Image<br>By containing applications within separate VM instances and kernel spaces, HyperContainer is able to offer an excellent Hardware-enforced Isolation, which is much needed in multi-tenant environments.</p>
+<p>HyperContainer also promises Immutable Infrastructure by eliminating the middle layer of Guest OS, along with the hassle to configure and manage them.</p>
+<h2 id="runC"><a href="#runC" class="headerlink" title="runC"></a>runC</h2><p>[runC][<a href="https://github.com/opencontainers/runc" target="_blank" rel="external">https://github.com/opencontainers/runc</a>] is a low-level container runtime and an implementation of the Open Container Initiative specification. runC exposes and expects a user to understand low-level details of the host operating system and configuration. It requires the user to separately download or cryptographically verify container images, and for “higher level tools” to prepare the container filesystem. runC does not have a centralized daemon, and, given a properly configured “OCI bundle”, can be integrated with init systems such as upstart and systemd.</p>
+<h2 id="containerd"><a href="#containerd" class="headerlink" title="containerd"></a>containerd</h2><p>[containerd][<a href="https://containerd.tools/" target="_blank" rel="external">https://containerd.tools/</a>] is a daemon to control runC. It has a command-line tool called ctr which is used to interact with the containerd daemon. This makes the containerd process model similar to that of the Docker process model, illustrated above.</p>
+<p>Unlike the Docker daemon it has a reduced feature set; not supporting image download, for example.</p>
+<h2 id="rkt"><a href="#rkt" class="headerlink" title="rkt"></a>rkt</h2><p>[rkt]<a href="pronounced" title="rock-it">https://github.com/coreos/rkt</a> is a CLI for running app containers on Linux. rkt is designed to be secure, composable, and standards-based.</p>
+<p>Some of rkt’s key features and goals include:</p>
+<p>Security: rkt is developed with a principle of “secure-by-default”, and includes a number of important security features like support for SELinux, TPM measurement, and running app containers in hardware-isolated VMs.<br>Composability: rkt is designed for first-class integration with init systems (systemd, upstart) and cluster orchestration tools (fleet, Kubernetes, Nomad), and supports swappable execution engines.<br>Open standards and compatibility: rkt implements the appc specification, supports the Container Networking Interface specification, can also run Docker images, and OCI images via docker2aci. Native OCI image support is in development.</p>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2016/12/27/container-related-open-source-projects/" class="archive-article-date">
+  	<time datetime="2016-12-27T00:56:02.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-12-27</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/container/">container</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2017/01/05/chinese-flash-card-for-kids/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          中文字卡快速制作
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/12/24/compile-rkt-with-kvm-support/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">compile rkt with kvm support</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">Share to: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+	    <a class="jiathis_button_twitter"></a>
+	    <a class="jiathis_button_plus"></a> 
+	    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="//v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+
+
+
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2017 fire3
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    <script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: false,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false,
+		root: "/",
+		innerArchive: true
+	}
+</script>
+
+<script src="/./main.js"></script>
+
+
+    
+<div class="tools-col">
+  <ul class="btn-wrap">
+    
+      <li class="chose" data-hook="tools-section-all"><span class="text">全部</span><i class="icon-book"></i></li>
+    
+    
+      <li data-hook="tools-section-tag"><span class="text">标签</span><i class="icon-price-tags"></i></li>
+    
+    
+      <li data-hook="tools-section-friends"><span class="text">友链</span><i class="icon-link"></i></li>
+    
+    
+      <li data-hook="tools-section-me"><span class="text">我</span><i class="icon-smile"></i></li>
+    
+  </ul>
+  <div class="tools-wrap">
+    
+    	<section class="tools-section tools-section-all chose">
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-tag">
+    			<div class="widget tagcloud" id="js-tagcloud">
+    				<a href="/tags/android/" style="font-size: 20px;">android</a> <a href="/tags/aria2/" style="font-size: 10px;">aria2</a> <a href="/tags/arm/" style="font-size: 10px;">arm</a> <a href="/tags/container/" style="font-size: 10px;">container</a> <a href="/tags/coreos/" style="font-size: 15px;">coreos</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/git/" style="font-size: 17.5px;">git</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/huge-page/" style="font-size: 10px;">huge page</a> <a href="/tags/json/" style="font-size: 10px;">json</a> <a href="/tags/kernel/" style="font-size: 15px;">kernel</a> <a href="/tags/kvm/" style="font-size: 12.5px;">kvm</a> <a href="/tags/latex/" style="font-size: 10px;">latex</a> <a href="/tags/linux/" style="font-size: 17.5px;">linux</a> <a href="/tags/redmine/" style="font-size: 10px;">redmine</a> <a href="/tags/rkt/" style="font-size: 10px;">rkt</a> <a href="/tags/shadowsocks/" style="font-size: 10px;">shadowsocks</a> <a href="/tags/sphinx/" style="font-size: 10px;">sphinx</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a>
+    			</div>
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-friends">
+  		
+  			<div class="friends-wrap" id="js-friends">
+  			
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">友情链接1</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">友情链接2</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">友情链接3</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">友情链接4</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">友情链接5</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">友情链接6</a>
+  	        
+  	        </div>
+  		
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-me">
+  	  	
+  	  		<div class="aboutme-wrap" id="js-aboutme">很惭愧&lt;br&gt;&lt;br&gt;只做了一点微小的工作&lt;br&gt;谢谢大家</div>
+  	  	
+    	</section>
+    
+  </div>
+  
+</div>
+    <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+  </div>
+</body>
+</html>

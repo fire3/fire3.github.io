@@ -6,23 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.fire3.xyz">
-  <title>centos7 firewalld with pptpd | Hexo</title>
+  <title>centos7 firewalld with pptpd | fire3&#39;s note</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Install pptpd with:1yum -y install ppp pptpd
-1234567891011121314151617# pptpd settingsecho &amp;apos;localip 10.10.0.1&amp;apos; &amp;gt;&amp;gt; /etc/pptpd.confecho &amp;apos;remoteip 10.10.0.100-199&amp;apos; &amp;gt;&amp;gt; /etc">
+  <meta name="description" content="本文介绍centos7 pptpd的配置和相应的firewalld的配置。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="centos7 firewalld with pptpd">
 <meta property="og:url" content="http://www.fire3.xyz/2016/09/09/centos7-firewalld-with-pptpd/index.html">
-<meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="Install pptpd with:1yum -y install ppp pptpd
-1234567891011121314151617# pptpd settingsecho &amp;apos;localip 10.10.0.1&amp;apos; &amp;gt;&amp;gt; /etc/pptpd.confecho &amp;apos;remoteip 10.10.0.100-199&amp;apos; &amp;gt;&amp;gt; /etc">
-<meta property="og:updated_time" content="2016-10-11T07:36:14.313Z">
+<meta property="og:site_name" content="fire3's note">
+<meta property="og:description" content="本文介绍centos7 pptpd的配置和相应的firewalld的配置。">
+<meta property="og:updated_time" content="2017-08-18T00:48:31.749Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="centos7 firewalld with pptpd">
-<meta name="twitter:description" content="Install pptpd with:1yum -y install ppp pptpd
-1234567891011121314151617# pptpd settingsecho &amp;apos;localip 10.10.0.1&amp;apos; &amp;gt;&amp;gt; /etc/pptpd.confecho &amp;apos;remoteip 10.10.0.100-199&amp;apos; &amp;gt;&amp;gt; /etc">
+<meta name="twitter:description" content="本文介绍centos7 pptpd的配置和相应的firewalld的配置。">
   
-    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+    <link rel="alternative" href="/atom.xml" title="fire3&#39;s note" type="application/atom+xml">
   
   
     <link rel="icon" href="/favicon.png">
@@ -162,7 +159,9 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Install pptpd with:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum -y install ppp pptpd</div></pre></td></tr></table></figure></p>
+        <p>本文介绍centos7 pptpd的配置和相应的firewalld的配置。</p>
+<a id="more"></a>
+<p>Install pptpd with:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum -y install ppp pptpd</div></pre></td></tr></table></figure></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"># pptpd settings</div><div class="line">echo &apos;localip 10.10.0.1&apos; &gt;&gt; /etc/pptpd.conf</div><div class="line">echo &apos;remoteip 10.10.0.100-199&apos; &gt;&gt; /etc/pptpd.conf</div><div class="line">echo &apos;ms-dns 8.8.8.8&apos; &gt;&gt; /etc/ppp/options.pptpd</div><div class="line">echo &apos;ms-dns 8.8.4.4&apos; &gt;&gt; /etc/ppp/options.pptpd</div><div class="line">echo &apos;USERNAME pptpd PASSWORD *&apos; &gt;&gt; /etc/ppp/chap-secrets</div><div class="line"></div><div class="line"></div><div class="line"># system ipv4 forward</div><div class="line">sysctl_file=/etc/sysctl.conf</div><div class="line">if grep -xq &apos;net.ipv4.ip_forward&apos; $sysctl_file; then</div><div class="line">sed -i.bak -r -e &quot;s/^.*net.ipv4.ip_forward.*/net.ipv4.ip_forward = 1/&quot; $sysctl_file</div><div class="line">else</div><div class="line">echo &apos;net.ipv4.ip_forward = 1&apos; &gt;&gt; $sysctl_file</div><div class="line">fi</div><div class="line"></div><div class="line">sysctl -p</div></pre></td></tr></table></figure>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">firewall-cmd --permanent --new-service=pptpd</div><div class="line"></div><div class="line">cat &gt; /etc/firewalld/services/pptpd.xml&lt;&lt;EOF</div><div class="line">&lt;?xml version=<span class="string">"1.0"</span> encoding=<span class="string">"utf-8"</span>?&gt;</div><div class="line">&lt;service&gt;</div><div class="line">  &lt;port protocol=<span class="string">"tcp"</span> port=<span class="string">"1723"</span>/&gt;</div><div class="line">  &lt;/service&gt;</div><div class="line">EOF</div><div class="line"></div><div class="line">firewall-cmd --permanent --zone=public --add-service=pptpd</div><div class="line">firewall-cmd --permanent --zone=public --add-masquerade</div><div class="line"></div><div class="line">firewall-cmd --permanent --direct --add-rule ipv4 filter INPUT 0 -p gre -j ACCEPT</div><div class="line">firewall-cmd --permanent --direct --add-rule ipv6 filter INPUT 0 -p gre -j ACCEPT</div><div class="line">firewall-cmd --reload</div></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"># start pptpd</div><div class="line">systemctl start pptpd</div><div class="line">systemctl enable pptpd.service</div></pre></td></tr></table></figure>
@@ -175,6 +174,11 @@
   	<time datetime="2016-09-08T23:19:23.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-09-09</time>
 </a>
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li></ul>
+	</div>
+
       
 
       <div class="clearfix"></div>
@@ -236,7 +240,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2016 fire3
+    		&copy; 2017 fire3
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
@@ -289,7 +293,7 @@
     
     	<section class="tools-section tools-section-tag">
     			<div class="widget tagcloud" id="js-tagcloud">
-    				<a href="/tags/android/" style="font-size: 13.33px;">android</a> <a href="/tags/coreos/" style="font-size: 10px;">coreos</a> <a href="/tags/git/" style="font-size: 20px;">git</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/huge-page/" style="font-size: 10px;">huge page</a> <a href="/tags/json/" style="font-size: 10px;">json</a> <a href="/tags/kernel/" style="font-size: 16.67px;">kernel</a> <a href="/tags/kvm/" style="font-size: 10px;">kvm</a> <a href="/tags/latex/" style="font-size: 10px;">latex</a> <a href="/tags/letv/" style="font-size: 10px;">letv</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/sphinx/" style="font-size: 10px;">sphinx</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a>
+    				<a href="/tags/android/" style="font-size: 20px;">android</a> <a href="/tags/aria2/" style="font-size: 10px;">aria2</a> <a href="/tags/arm/" style="font-size: 10px;">arm</a> <a href="/tags/container/" style="font-size: 10px;">container</a> <a href="/tags/coreos/" style="font-size: 15px;">coreos</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/git/" style="font-size: 17.5px;">git</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/huge-page/" style="font-size: 10px;">huge page</a> <a href="/tags/json/" style="font-size: 10px;">json</a> <a href="/tags/kernel/" style="font-size: 15px;">kernel</a> <a href="/tags/kvm/" style="font-size: 12.5px;">kvm</a> <a href="/tags/latex/" style="font-size: 10px;">latex</a> <a href="/tags/linux/" style="font-size: 17.5px;">linux</a> <a href="/tags/redmine/" style="font-size: 10px;">redmine</a> <a href="/tags/rkt/" style="font-size: 10px;">rkt</a> <a href="/tags/shadowsocks/" style="font-size: 10px;">shadowsocks</a> <a href="/tags/sphinx/" style="font-size: 10px;">sphinx</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a>
     			</div>
     	</section>
     

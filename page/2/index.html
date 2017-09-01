@@ -6,16 +6,16 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://www.fire3.xyz">
-  <title>Hexo</title>
+  <title>fire3&#39;s note</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
+<meta property="og:title" content="fire3's note">
 <meta property="og:url" content="http://www.fire3.xyz/page/2/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:site_name" content="fire3's note">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="fire3's note">
   
-    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+    <link rel="alternative" href="/atom.xml" title="fire3&#39;s note" type="application/atom+xml">
   
   
     <link rel="icon" href="/favicon.png">
@@ -139,7 +139,7 @@
       <div class="body-wrap">
         
   
-    <article id="post-make-debug" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-bash-memo" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <input type="hidden" class="isFancy" />
@@ -149,7 +149,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2016/06/24/make-debug/">make debug</a>
+      <a class="article-title" href="/2016/12/18/bash-memo/">bash memo</a>
     </h1>
   
 
@@ -157,15 +157,16 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>try the below method:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ make V=1</div><div class="line">$ make VERBOSE=1</div><div class="line">$ make SHELL=&apos;sh -x&apos;</div></pre></td></tr></table></figure>
-
+        <p>好记性不如烂笔头。Bash博大精深，里面门道多了。</p>
+        <p class="article-more-link">
+          <a class="article-more-a"  href="/2016/12/18/bash-memo/#more">more >></a>
+        </p>
       
     </div>
     <div class="article-info article-info-index">
       
-      <a href="/2016/06/24/make-debug/" class="archive-article-date">
-  	<time datetime="2016-06-24T00:25:04.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-06-24</time>
+      <a href="/2016/12/18/bash-memo/" class="archive-article-date">
+  	<time datetime="2016-12-18T01:06:43.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-12-18</time>
 </a>
       
 	<div class="article-tag tagcloud">
@@ -190,7 +191,7 @@
 
 
   
-    <article id="post-hexo-no-deployer-git" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-sphinx-and-latex-1" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <input type="hidden" class="isFancy" />
@@ -200,7 +201,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2016/06/15/hexo-no-deployer-git/">hexo no deployer git</a>
+      <a class="article-title" href="/2016/12/17/sphinx-and-latex-1/">sphinx and latex</a>
     </h1>
   
 
@@ -208,15 +209,19 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>奇怪，另外一台新配置的hexo环境上clone出来的blog，deploy时报没有相应的deployer git。解决方法如下::</p>
-<pre><code>npm install hexo-deployer-git --save
-</code></pre>
+        <p>新版的sphinx支持latex需要修改两个文件了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">/usr/local/lib/python2.7/dist-packages/sphinx/templates/latex/content.tex_t </div><div class="line">/usr/local/lib/python2.7/dist-packages/sphinx/writers/latex.py</div></pre></td></tr></table></figure>
+<p>第一个模板文件中找到位置加上2行CJK相关的配置。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">\usepackage&#123;multirow&#125;</div><div class="line">\usepackage&#123;eqparbox&#125;</div><div class="line">\usepackage&#123;CJKutf8&#125;</div><div class="line"></div><div class="line">&lt;!-- snip --&gt;</div><div class="line">\end&#123;CJK&#125;</div><div class="line">\end&#123;document&#125;</div></pre></td></tr></table></figure>
+<p>第二个latex.py中需要改一下，在begin{document}后面增加一行。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">BEGIN_DOC = r&apos;&apos;&apos;</div><div class="line">\begin&#123;document&#125;</div><div class="line">\begin&#123;CJK&#125;&#123;UTF8&#125;&#123;gbsn&#125;</div></pre></td></tr></table></figure>
+
       
     </div>
     <div class="article-info article-info-index">
       
-      <a href="/2016/06/15/hexo-no-deployer-git/" class="archive-article-date">
-  	<time datetime="2016-06-15T01:17:17.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-06-15</time>
+      <a href="/2016/12/17/sphinx-and-latex-1/" class="archive-article-date">
+  	<time datetime="2016-12-17T08:28:24.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-12-17</time>
 </a>
       
       
@@ -236,7 +241,7 @@
 
 
   
-    <article id="post-false-IP-conflict" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-wd-my-cloud-pack-app" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <input type="hidden" class="isFancy" />
@@ -246,7 +251,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2016/06/15/false-IP-conflict/">IP地址冲突，静态IP变169</a>
+      <a class="article-title" href="/2016/11/16/wd-my-cloud-pack-app/">wd my cloud pack app</a>
     </h1>
   
 
@@ -254,18 +259,35 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>办公环境里面的一台虚拟机，有阵子没有重启过了，重启了一次，发现IP失灵了。<br>明明是个静态IP，非要给我设置成169的微软私有IP，反复禁用网卡，再启用网卡，偶尔还会报IP冲突的错误。<br>经过一番折腾，最终还是在google找到了 <a href="https://kb.vmware.com/selfservice/microsites/search.do?language=en_US&amp;cmd=displayKC&amp;externalId=1028373" target="_blank" rel="external">答案</a></p>
-<p>解决方法如下，打开注册表进入到这个目录下::</p>
-<pre><code>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters
-</code></pre><p>新建一个DWORD 32位值: ArpRetryCount，值为0.</p>
-<p>重启即可。原因还是交换机那边设置的问题。</p>
+        <ul>
+<li>Download “Third party app GPL sources” from WD website. There is mksapkg tool for build WD App package</li>
+<li>Make “App” (Use any of GPL “sources” as base).</li>
+<li>apkg.sign &amp; apkg.xml automatically generated by mksapkg tool, based on apkg.rc data</li>
+<li>Hmm… If you found something usefyl - add it to init.sh in any app (This file executed firs after reboot / while OS boot)</li>
+<li>For unpack compiled apkg (app) use 7zip (He can automatically skip header info).</li>
+<li><p>About fil structure inside app:</p>
+</li>
+<li><p>apkg.rc - Main file, info about this app</p>
+</li>
+<li>before_apkg.sh - Script, run before apkg install</li>
+<li>preinst.sh - Preinstall script, exec before install.sh, but after before_apkg.sh</li>
+<li>init.sh - exec every time, when OS start.</li>
+<li>Install.sh &amp; remove.sh - install/remove scripts</li>
+<li>start.sh &amp; stop.sh - For control app (exec when user change “enable this app” checkbox in web gui)</li>
+<li>web/desc.xml - localisation file / app info (For web gui)</li>
+<li>web/<em>app_name</em>.png - app icon for web gui</li>
+<li>web/index.html - App web page for control.</li>
+</ul>
+<p>SKD Documents here: <a href="http://developer.mycloud.com/" target="_blank" rel="external">http://developer.mycloud.com/</a></p>
+<p>Download mksapkg: <a href="http://downloads.wdc.com/gpl/WDMyCloud_NAS_Apps_GPL_20150226.tar.gz" target="_blank" rel="external">http://downloads.wdc.com/gpl/WDMyCloud_NAS_Apps_GPL_20150226.tar.gz</a></p>
+<p>Some very useful resources: <a href="https://ftp.anionix.ru/WDMyCloud/WDMyCloud-Gen2/" target="_blank" rel="external">https://ftp.anionix.ru/WDMyCloud/WDMyCloud-Gen2/</a></p>
 
       
     </div>
     <div class="article-info article-info-index">
       
-      <a href="/2016/06/15/false-IP-conflict/" class="archive-article-date">
-  	<time datetime="2016-06-15T01:04:28.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-06-15</time>
+      <a href="/2016/11/16/wd-my-cloud-pack-app/" class="archive-article-date">
+  	<time datetime="2016-11-16T00:40:26.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-11-16</time>
 </a>
       
       
@@ -285,7 +307,7 @@
 
 
   
-    <article id="post-centos7-setup-shadowsocks-libev" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-compile-aria2-for-arm" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <input type="hidden" class="isFancy" />
@@ -295,7 +317,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2016/06/09/centos7-setup-shadowsocks-libev/">centos7 setup shadowsocks-libev</a>
+      <a class="article-title" href="/2016/11/15/compile-aria2-for-arm/">compile aria2 for arm</a>
     </h1>
   
 
@@ -303,338 +325,21 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="安装Shadowssocks服务端"><a href="#安装Shadowssocks服务端" class="headerlink" title="安装Shadowssocks服务端"></a>安装Shadowssocks服务端</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">wget https://copr.fedorainfracloud.org/coprs/librehat/shadowsocks/repo/epel-7/librehat-shadowsocks-epel-7.repo</div><div class="line">mv librehat-shadowsocks-epel-7.repo /etc/yum.repos.d/</div><div class="line">yum install shadowsocks-libev</div></pre></td></tr></table></figure>
-<p>接下来修改配置文件： /etc/shadowsocks-libev/config.json</p>
-<p>类似如下配置：</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    <span class="attr">"server"</span>:<span class="string">"0.0.0.0"</span>,</div><div class="line">    <span class="attr">"server_port"</span>:<span class="number">9000</span>,</div><div class="line">    <span class="attr">"local_port"</span>:<span class="number">1080</span>,</div><div class="line">    <span class="attr">"password"</span>:<span class="string">"password"</span>,</div><div class="line">    <span class="attr">"timeout"</span>:<span class="number">60</span>,</div><div class="line">    <span class="attr">"method"</span>:<span class="string">"aes-256-cfb"</span>,</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>配置防火墙:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">firewall-cmd --permanent --add-port=9000/tcp</div><div class="line">firewall-cmd --permanent --add-port=9000/udp</div><div class="line">firewall-cmd --reload</div></pre></td></tr></table></figure>
-<p>启动shadowsocks-libev</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">service shadowsocks-libev start</div></pre></td></tr></table></figure>
-<p>开机启动 </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">systemctl <span class="built_in">enable</span> shadowsocks-libev.service</div></pre></td></tr></table></figure>
-<h1 id="安装kcptun服务端"><a href="#安装kcptun服务端" class="headerlink" title="安装kcptun服务端"></a>安装kcptun服务端</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">cd</span> /root</div><div class="line">wget https://github.com/xtaci/kcptun/releases/download/v20161009/kcptun-linux-amd64-20161009.tar.gz</div><div class="line">tar xvf kcptun-linux-amd64-20161009.tar.gz</div></pre></td></tr></table></figure>
-<p>Install supervisord:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">yum -y install python-pip</div><div class="line">pip install supervisor</div><div class="line">echo_supervisord_conf &gt; /etc/supervisord.conf</div></pre></td></tr></table></figure>
-<p>Add tcptun service to supervisord:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">cat &lt;&lt;EOF &gt;&gt; /etc/supervisord.conf</div><div class="line">[program:tcptun]</div><div class="line">command = /root/server_linux_amd64 -l :9002 -t 127.0.0.1:9000 --crypt none --mtu 1200 --nocomp --mode normal --dscp 46</div><div class="line">user = root</div><div class="line">autostart = true</div><div class="line">autoresart = true</div><div class="line">stderr_logfile = /var/log/supervisor/tcptun.stderr.log</div><div class="line">stdout_logfile = /var/log/supervisor/tcptun.stdout.log</div><div class="line">EOF</div></pre></td></tr></table></figure></p>
-<p>为kcp服务端配置防火墙:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">firewall-cmd --permanent --add-port=9002/tcp</div><div class="line">firewall-cmd --permanent --add-port=9002/udp</div><div class="line">firewall-cmd --reload</div></pre></td></tr></table></figure></p>
-<p>启动supervisord:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">mkdir -p /var/log/supervisor/</div><div class="line">supervisord -c /etc/supervisord.conf</div></pre></td></tr></table></figure></p>
-<p>开机启动supervisord：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">echo &quot;supervisord -c /etc/supervisord.conf&quot; &gt;&gt; /etc/rc.local</div></pre></td></tr></table></figure></p>
-<h1 id="优化服务器内核配置"><a href="#优化服务器内核配置" class="headerlink" title="优化服务器内核配置"></a>优化服务器内核配置</h1><p>修改配置文件:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">cat &lt;&lt;EOF &gt;&gt; /etc/sysctl.conf</div><div class="line"><span class="comment">#TCP OPT</span></div><div class="line">fs.file-max = 51200</div><div class="line">net.core.rmem_max = 67108864</div><div class="line">net.core.wmem_max = 67108864</div><div class="line">net.core.netdev_max_backlog = 250000</div><div class="line">net.core.somaxconn = 4096</div><div class="line">net.ipv4.tcp_syncookies = 1</div><div class="line">net.ipv4.tcp_tw_reuse = 1</div><div class="line">net.ipv4.tcp_tw_recycle = 0</div><div class="line">net.ipv4.tcp_fin_timeout = 30</div><div class="line">net.ipv4.tcp_keepalive_time = 1200</div><div class="line">net.ipv4.ip_local_port_range = 10000 65000</div><div class="line">net.ipv4.tcp_max_syn_backlog = 8192</div><div class="line">net.ipv4.tcp_max_tw_buckets = 5000</div><div class="line">net.ipv4.tcp_fastopen = 3</div><div class="line">net.ipv4.tcp_mem = 25600 51200 102400</div><div class="line">net.ipv4.tcp_rmem = 4096 87380 67108864</div><div class="line">net.ipv4.tcp_wmem = 4096 65536 67108864</div><div class="line">net.ipv4.tcp_mtu_probing = 1</div><div class="line">net.ipv4.tcp_congestion_control = hybla</div><div class="line"><span class="comment">#TCP OPT END</span></div><div class="line">EOF</div></pre></td></tr></table></figure></p>
-<p>设置生效：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sysctl -p</div></pre></td></tr></table></figure></p>
-
+        <p>闲来无事试着给WD Mycloud编编软件试试。</p>
+        <p class="article-more-link">
+          <a class="article-more-a"  href="/2016/11/15/compile-aria2-for-arm/#more">more >></a>
+        </p>
       
     </div>
     <div class="article-info article-info-index">
       
-      <a href="/2016/06/09/centos7-setup-shadowsocks-libev/" class="archive-article-date">
-  	<time datetime="2016-06-08T20:01:10.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-06-09</time>
-</a>
-      
-      
-
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-pip-local-mirror" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/03/28/pip-local-mirror/">pip local mirror</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>pip安装软件方便，但是在一个没有互联网的环境里就抓瞎了。发现了一个这个好工具：</p>
-<p><a href="https://github.com/wolever/pip2pi" target="_blank" rel="external">https://github.com/wolever/pip2pi</a> 可以方便的把pip软件依赖的各种py包都爬下来，利用 pip2tgz 命令就可以了：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ pip2tgz packages/ mkdocs</div></pre></td></tr></table></figure>
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      <a href="/2016/03/28/pip-local-mirror/" class="archive-article-date">
-  	<time datetime="2016-03-28T10:37:37.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-03-28</time>
-</a>
-      
-      
-
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Hack-bilibili-for-fun_2" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/03/11/Hack-bilibili-for-fun_2/">Hack bilibili for fun --- Episode 2</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>链接URL一目了然后，需要弄清除URL的含义细节，许多字段都可以顾名思义，比如如下例子：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://api.bilibili.com/list?_device=android&amp;_hwid=ccbb856c97ccb8d2&amp;appkey=c1b107428d337928&amp;order=hot&amp;page=1&amp;pagesize=8&amp;platform=android&amp;tid=82&amp;type=json&amp;sign=9ba57bd5befcf86d9ec5917af0b7e368</div></pre></td></tr></table></figure>
-<p>可以看到 _hwid  类似机器代码，可能时IMEI识别码之类的。appkey这是这个应用统一的一个key，所有的这个安卓应用都是用这个key。order为排序方法，page和pagesize是页面编号和大小。platform所有链接均为android。tid不同，为B站的频道识别码。type均为json，最最关键的时sign这个字段，这个字段是这个URL的一个签名字段，api服务器需要检查这个字段才认可这个请求。我们需要搞清除sign的生成算法。在这里，不得不再感谢未混淆的代码以及一些开源软件事先的工作，比如 you-get。我们先打开源程序中程序员的调试插桩，看看原来程序员的调试打印：</p>
-<p>修改这个文件： tv/danmaku/android/util/DebugLog.smali , 把这个里面的constructor里面的 const/4 v0, 0x0 全部改为 const/4 v0, 0x1 。就可以看到原来程序员的打印了。</p>
-<p>综合BlaUriBuilder这个文件，看getSignedQuery实现，不难发现是用MD5算了一串字符串生成了sign。那么算的究竟时什么东西呢？原来程序员调试时也加了打印：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">I/BLAUriBuilder(26691): signed  query _device=android&amp;_hwid=ccbb856c97ccb8d2&amp;appkey=c1b107428d337928&amp;order=hot&amp;page=1&amp;pagesize=8&amp;platform=android&amp;tid=145&amp;type=json</div><div class="line">I/BLAUriBuilder(26691): escaped query _device=android&amp;_hwid=ccbb856c97ccb8d2&amp;appkey=c1b107428d337928&amp;order=hot&amp;page=1&amp;pagesize=8&amp;platform=android&amp;tid=145&amp;type=json&amp;sign=3f5a589a226ffacea56e4ac96b7d3583</div><div class="line">I/BLAUriBuilder(26691): escaped url http://api.bilibili.com/list?_device=android&amp;_hwid=ccbb856c97ccb8d2&amp;appkey=c1b107428d337928&amp;order=hot&amp;page=1&amp;pagesize=8&amp;platform=android&amp;tid=145&amp;type=json&amp;sign=3f5a589a226ffacea56e4ac96b7d3583</div></pre></td></tr></table></figure>
-<p>可以看到，第一行中内容就是MD5计算的输入，但这个输入并不完整，仔细看还缺少了一个LibBili.getAppSecret获取的AppSecret，同样通过代码插桩，我们很方便的获取到这个Appsecret为ea85624dfcf12d7cc7b2b3a94fac1f2c，接下来就可以验证算法了，使用python：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; hashlib.md5(bytes(&apos;_device=android&amp;_hwid=ccbb856c97ccb8d2&amp;appkey=c1b107428d337928&amp;order=hot&amp;page=1&amp;pagesize=8&amp;platform=android&amp;tid=145&amp;type=json&apos;)).hexdigest()</div><div class="line">&apos;81eae43caf2fc31516cd2640be9fa747&apos;</div><div class="line">&gt;&gt;&gt; hashlib.md5(bytes(&apos;_device=android&amp;_hwid=ccbb856c97ccb8d2&amp;appkey=c1b107428d337928&amp;order=hot&amp;page=1&amp;pagesize=8&amp;platform=android&amp;tid=145&amp;type=jsonea85624dfcf12d7cc7b2b3a94fac1f2c&apos;)).hexdigest()</div><div class="line">&apos;3f5a589a226ffacea56e4ac96b7d3583&apos;</div></pre></td></tr></table></figure>
-<p>可以看到跟上面打印中的sign计算出来一致。至此，sign的生成方法一目了然。 普通的获取获取一个频道的视频均是这个URL，另外就是搜索的URL生成：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">I/BLAUriBuilder(26691): signed  query _device=android&amp;_hwid=ccbb856c97ccb8d2&amp;appkey=c1b107428d337928&amp;keyword=%E4%B9%8C%E9%BE%9F&amp;order=default&amp;page=1&amp;pagesize=20&amp;platform=android&amp;type=json</div><div class="line">I/BLAUriBuilder(26691): escaped query _device=android&amp;_hwid=ccbb856c97ccb8d2&amp;appkey=c1b107428d337928&amp;keyword=%E4%B9%8C%E9%BE%9F&amp;order=default&amp;page=1&amp;pagesize=20&amp;platform=android&amp;type=json&amp;sign=9d0886eb3d0731158c59e731b565aa25</div><div class="line">I/BLAUriBuilder(26691): escaped url http://api.bilibili.com/search?_device=android&amp;_hwid=ccbb856c97ccb8d2&amp;appkey=c1b107428d337928&amp;keyword=%E4%B9%8C%E9%BE%9F&amp;order=default&amp;page=1&amp;pagesize=20&amp;platform=android&amp;type=json&amp;sign=9d0886eb3d0731158c59e731b565aa25</div></pre></td></tr></table></figure>
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      <a href="/2016/03/11/Hack-bilibili-for-fun_2/" class="archive-article-date">
-  	<time datetime="2016-03-11T08:48:07.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-03-11</time>
-</a>
-      
-      
-
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Hack-bilibili-for-fun_1" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/03/11/Hack-bilibili-for-fun_1/">Hack bilibili for fun --- Episode 1</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>B站的视频虽说本人甚少参观，但是本着研究以及造福大众的学术态度，还是光顾并折腾了一番。</p>
-<p>先想办法窥测一下B站的API吧。老方法，通过反编译B站的安卓客户端进行，这是最原汁原味的API。</p>
-<p>B站的客户端 ：　<a href="http://app.bilibili.com/images/android.html" target="_blank" rel="external">http://app.bilibili.com/images/android.html</a></p>
-<p>这里选取怀旧版进行ｈａｃｋ，主要原因是上面一个版本apktool居然无法解包。下面一个“怀旧版”也遇到了一些小的技术问题，<br>按照默认方式解包时无法正常打包，资源文件故障。资源文件故障的解决方法是不解包资源文件。用下面命令来解包， -r 表示保留资源文件不解压，可以有效解决打包时<br>资源文件报错的问题。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">apktool d -r ./BiliPlayer_White.apk</div></pre></td></tr></table></figure>
-<p>用这个小脚本调试：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">rm -rf build signed</div><div class="line">mkdir build</div><div class="line">mkdir signed</div><div class="line">adb shell pm uninstall tv.danmaku.bilixl</div><div class="line">apktool build BiliPlayer_White -o build/Biliplayer.apk</div><div class="line">d2j-apk-sign.sh -f build/Biliplayer.apk -o signed/Biliplayer.apk</div><div class="line">adb install signed/Biliplayer.apk</div></pre></td></tr></table></figure>
-<p>先想办法找到B站的Http请求URL。</p>
-<p>我先从反编译的一堆smali里面逛了逛，另外配合d2j-dex2jar工具转换的jar包和jd-gui工具看了看，评估一下这个工作量。不看不知道，一看吓一跳，<br>B站的程序员实在是良心大大的好程序员，思路清晰，函数封装合理，最最最重要是，代码没有加入混淆。都知道，安卓代码不加混淆反编译就是明文啊，这<br>可阅读性提高太多了。你看，人家目录名都放的多么符合程序员的编程规范： smali/tv/danmaku/bili/api ， 这还用说么，这不是api这是啥。先不忙着激动，<br>让我们来找找HttpGet这个关键字。一搜一大把啊，太符合逻辑了。顺便说一句，HttpGet这个是apache http接口里面的，就算混淆了代码，用了这个也还是能追踪到。<br>继续筛选我们要的东西，buildHttpGet被发现，太有爱了，要我我也喜欢这个命名。我得写了统一的接口来生成http请求啊，我得封装一组操作来执行Get操作啊，于是乎就<br>有了buildHttpGet，接下来就简单了，开始加Log：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">.method public buildHttpGet()Lorg/apache/http/client/methods/HttpGet;</div><div class="line">    #.locals 2</div><div class="line"></div><div class="line">    # add a local register by fire3</div><div class="line">    .locals 3</div><div class="line"></div><div class="line">    .prologue</div><div class="line">    .line 105</div><div class="line">    new-instance v0, Lorg/apache/http/client/methods/HttpGet;</div><div class="line"></div><div class="line">    invoke-virtual &#123;p0&#125;, Ltv/danmaku/bili/api2/utility/BLAUriBuilder;-&gt;build()Landroid/net/Uri;</div><div class="line"></div><div class="line">    move-result-object v1</div><div class="line"></div><div class="line">    invoke-virtual &#123;v1&#125;, Landroid/net/Uri;-&gt;toString()Ljava/lang/String;</div><div class="line"></div><div class="line">    move-result-object v1</div><div class="line"></div><div class="line">#============= add by fire3 start ============</div><div class="line">const-string v2, &quot;fire3-bili-Get&quot;</div><div class="line">invoke-static &#123;v2, v1&#125;, Landroid/util/Log;-&gt;i(Ljava/lang/String;Ljava/lang/String;)I</div><div class="line">#============= add by fire3 end =============</div><div class="line"></div><div class="line"></div><div class="line">    invoke-direct &#123;v0, v1&#125;, Lorg/apache/http/client/methods/HttpGet;-&gt;&lt;init&gt;(Ljava/lang/String;)V</div><div class="line"></div><div class="line">    .line 106</div><div class="line">    .local v0, &quot;httpRequest&quot;:Lorg/apache/http/client/methods/HttpGet;</div><div class="line">    invoke-direct &#123;p0, v0&#125;, Ltv/danmaku/bili/api2/utility/BLAUriBuilder;-&gt;setupRequest(Lorg/apache/http/HttpRequest;)V</div><div class="line"></div><div class="line">    .line 108</div><div class="line">    return-object v0</div><div class="line">.end method</div></pre></td></tr></table></figure>
-<p>找到合适的地方加个Log太Easy了，看上面代码就知道。然后pack程序，装上执行，点击点击看看，就可以在adb shell里面用logcat搜了：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">30|root@generic:/ # logcat | grep fire3                                       </div><div class="line"></div><div class="line">I/fire3-bili-Get( 1714): http://api.bilibili.com/bangumi?_device=android&amp;_hwid=ccbb856c97ccb8d2&amp;appkey=c1b107428d337928&amp;btype=2&amp;platform=android&amp;type=json&amp;sign=1d1ddc1de2d3741a5d20206034852284</div><div class="line">I/fire3-bili-Get( 1714): http://api.bilibili.com/index?_device=android&amp;_hwid=ccbb856c97ccb8d2&amp;appkey=c1b107428d337928&amp;platform=android&amp;type=json&amp;v=2&amp;sign=ebe01fa7223eb329c177792f5ace70da</div><div class="line">I/fire3-bili-Get( 1714): http://api.bilibili.com/list?_device=android&amp;_hwid=ccbb856c97ccb8d2&amp;appkey=c1b107428d337928&amp;order=hot&amp;page=1&amp;pagesize=8&amp;platform=android&amp;tid=145&amp;type=json&amp;sign=3f5a589a226ffacea56e4ac96b7d3583</div><div class="line">I/fire3-bili-Get( 1714): http://api.bilibili.com/list?_device=android&amp;_hwid=ccbb856c97ccb8d2&amp;appkey=c1b107428d337928&amp;order=hot&amp;page=1&amp;pagesize=8&amp;platform=android&amp;tid=145&amp;type=json&amp;sign=3f5a589a226ffacea56e4ac96b7d3583</div></pre></td></tr></table></figure>
-<p>这个是货真价实的一手资料！下一步就开始分析接口了。B站的工作正式启动，未完待续。</p>
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      <a href="/2016/03/11/Hack-bilibili-for-fun_1/" class="archive-article-date">
-  	<time datetime="2016-03-11T08:48:07.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-03-11</time>
-</a>
-      
-      
-
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-mate-7-logcat" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/02/04/mate-7-logcat/">mate 7 logcat</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>用手机进行调试，在电脑上不显示logcat信息。</p>
-<p>解决方法:</p>
-<p>在拨打电话界面，录入*#*#2846579#*#*<br>自动进入开发界面菜单，按以下步骤:</p>
-<p>ProjectMenu -&gt; Background setting -&gt; Log Setting   选择打开即可.</p>
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      <a href="/2016/02/04/mate-7-logcat/" class="archive-article-date">
-  	<time datetime="2016-02-04T03:35:44.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-02-04</time>
-</a>
-      
-      
-
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-gradle-faile-to-sync" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/01/25/gradle-faile-to-sync/">gradle faile to sync</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>有一阵子没用一台Linux机器上的开发环境，gradle在同步时报”Broken Pipe”.</p>
-<p>还是stackoverflow上的答案靠谱：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">iptables -t nat -F</div><div class="line">echo 0 &gt; /proc/sys/net/ipv4/ip_forward</div></pre></td></tr></table></figure>
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      <a href="/2016/01/25/gradle-faile-to-sync/" class="archive-article-date">
-  	<time datetime="2016-01-25T08:24:19.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-01-25</time>
-</a>
-      
-      
-
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-activity-IllegalStateException" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/04/07/activity-IllegalStateException/">该解决这个IllegalStateException的问题了</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><a href="http://www.sailorcast.com" target="_blank" rel="external">水手放映室</a> 偶尔会遭遇这个问题：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">java.lang.IllegalStateException: Can not perform this action after onSaveInstanceState</div><div class="line">   at android.support.v4.app.FragmentManagerImpl.checkStateLoss(FragmentManager.java:1365)</div><div class="line">   at android.support.v4.app.FragmentManagerImpl.enqueueAction(FragmentManager.java:1383)</div><div class="line">   at android.support.v4.app.BackStackRecord.commitInternal(BackStackRecord.java:636)</div><div class="line">   at android.support.v4.app.BackStackRecord.commit(BackStackRecord.java:615)</div><div class="line">   at com.crixmod.sailorcast.view.AlbumDetailActivity$3.run(AlbumDetailActivity.java:343)</div></pre></td></tr></table></figure>
-<p>这个错误造成的原因是因为在异步的网络请求返回后操作了fragment的commit。该请求返回时可能当前的activity已经在Pause或者Stop状态了，就会报这个状态不一致的异常。详细解释参见：<br><a href="http://www.androiddesignpatterns.com/2013/08/fragment-transaction-commit-state-loss.html" target="_blank" rel="external">http://www.androiddesignpatterns.com/2013/08/fragment-transaction-commit-state-loss.html</a></p>
-<p>准备参考 <a href="http://stackoverflow.com/questions/8040280/how-to-handle-handler-messages-when-activity-fragment-is-paused" target="_blank" rel="external">http://stackoverflow.com/questions/8040280/how-to-handle-handler-messages-when-activity-fragment-is-paused</a>  这篇文章来解决一下这个问题。</p>
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      <a href="/2015/04/07/activity-IllegalStateException/" class="archive-article-date">
-  	<time datetime="2015-04-07T15:05:30.000Z" itemprop="datePublished"><i class="icon-clock"></i>2015-04-07</time>
+      <a href="/2016/11/15/compile-aria2-for-arm/" class="archive-article-date">
+  	<time datetime="2016-11-15T00:01:22.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-11-15</time>
 </a>
       
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/aria2/">aria2</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/arm/">arm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li></ul>
 	</div>
 
       
@@ -654,9 +359,303 @@
 
 
   
+    <article id="post-compile-dpdk" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/11/03/compile-dpdk/">compile dpdk</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="编译dpdk"><a href="#编译dpdk" class="headerlink" title="编译dpdk"></a>编译dpdk</h1><p>在x86_64 linux ubuntu 16.04环境下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">make install T=x86_64-native-linuxapp-gcc</div></pre></td></tr></table></figure>
+<p>如果需要查看详细输出，可以运行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">make install T=x86_64-native-linuxapp-gcc V=1</div></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2016/11/03/compile-dpdk/" class="archive-article-date">
+  	<time datetime="2016-11-03T03:08:47.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-11-03</time>
+</a>
+      
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-fix-grub2-install" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/10/19/fix-grub2-install/">fix grub2 install</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>手里一台机器突然死机，重启后grub失灵了，于是费了一番周折恢复grub2。<br>先用光盘进入系统，然后打开terminal。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">sudo su -</div><div class="line">mkdir /mnt</div><div class="line">mount /dev/sda4 /mnt</div><div class="line">mount /dev/sda2 /mnt/boot</div><div class="line">mount -t proc proc /mnt/proc</div><div class="line">mount --bind /sys /mnt/sys</div><div class="line">mount --bind /dev /mnt/dev</div><div class="line">chroot /mnt</div></pre></td></tr></table></figure>
+<p>进入后，首先安装grub2时发现域名不能解析，设置了一下 /etc/resolv.conf，比照外面环境设置即可。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">echo &quot;nameserver 127.0.1.1&quot; &gt; /dev/resolv.conf</div></pre></td></tr></table></figure>
+<p>然后执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">apt install grub2</div><div class="line">parted /dev/sda set 1 bios_grub on</div><div class="line">grub-install --target=i386-pc /dev/sda</div></pre></td></tr></table></figure>
+<p>执行正常没有报错。重启后进入了久违的grub界面。但是又有了新问题，进不去系统了。卡在了systemd的dev-disk服务。<br>systemd的该服务超时，进入维护模式，后来想到是不是/etc/fstab由于分区的修改导致uuid发生了变化，所以修改了/etc/fstab，不使用uuid了，直接用/dev/sdaX来标示分区。<br>重启，解决问题！回到了我的系统。</p>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2016/10/19/fix-grub2-install/" class="archive-article-date">
+  	<time datetime="2016-10-19T07:57:49.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-10-19</time>
+</a>
+      
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-centos7-firewalld-with-pptpd" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/09/09/centos7-firewalld-with-pptpd/">centos7 firewalld with pptpd</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>本文介绍centos7 pptpd的配置和相应的firewalld的配置。</p>
+        <p class="article-more-link">
+          <a class="article-more-a"  href="/2016/09/09/centos7-firewalld-with-pptpd/#more">more >></a>
+        </p>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2016/09/09/centos7-firewalld-with-pptpd/" class="archive-article-date">
+  	<time datetime="2016-09-08T23:19:23.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-09-09</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-centos7-install-ffmpeg" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/08/22/centos7-install-ffmpeg/">centos7 install ffmpeg</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Centos7 Install ffmpeg :</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sudo yum -y install http://li.nux.ro/download/nux/dextop/el7/x86_64/nux-dextop-release-0-5.el7.nux.noarch.rpm</div><div class="line">sudo yum install ffmpeg</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2016/08/22/centos7-install-ffmpeg/" class="archive-article-date">
+  	<time datetime="2016-08-21T18:49:29.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-08-22</time>
+</a>
+      
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-high-light-current-in-gnome-terminal" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/08/09/high-light-current-in-gnome-terminal/">high light current in gnome terminal</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Tested in Ubuntu 16.04:</p>
+<p>edit  ~/.config/gtk-3.0/gtk.css</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">TerminalWindow .notebook tab:active &#123;</div><div class="line">        background-color: #b0c0f0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2016/08/09/high-light-current-in-gnome-terminal/" class="archive-article-date">
+  	<time datetime="2016-08-08T23:06:56.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-08-09</time>
+</a>
+      
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-install-jdk-from-tar" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/08/09/install-jdk-from-tar/">install jdk from tar</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>place jdk1.8.0_101 to /opt</p>
+<p>modify .bashrc:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#set oracle jdk environment</span></div><div class="line"><span class="built_in">export</span> JAVA_HOME=/opt/jdk1.8.0_101</div><div class="line"><span class="built_in">export</span> JRE_HOME=<span class="variable">$&#123;JAVA_HOME&#125;</span>/jre  </div><div class="line"><span class="built_in">export</span> CLASSPATH=.:<span class="variable">$&#123;JAVA_HOME&#125;</span>/lib:<span class="variable">$&#123;JRE_HOME&#125;</span>/lib  </div><div class="line"><span class="built_in">export</span> PATH=<span class="variable">$&#123;JAVA_HOME&#125;</span>/bin:<span class="variable">$PATH</span></div></pre></td></tr></table></figure>
+<p>execute:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">source</span> .bashrc</div><div class="line"></div><div class="line">sudo update-alternatives --install /usr/bin/java java /opt/jdk1.8.0_101/bin/java 300  </div><div class="line">sudo update-alternatives --install /usr/bin/javac javac /opt/jdk1.8.0_101/bin/javac 300  </div><div class="line">sudo update-alternatives --install /usr/bin/jar jar /opt/jdk1.8.0_101/bin/jar 300   </div><div class="line">sudo update-alternatives --install /usr/bin/javah javah /opt/jdk1.8.0_101/bin/javah 300   </div><div class="line">sudo update-alternatives --install /usr/bin/javap javap /opt/jdk1.8.0_101/bin/javap 300</div><div class="line">sudo update-alternatives --config java</div></pre></td></tr></table></figure>
+<p>verify java installation:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">java -version</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2016/08/09/install-jdk-from-tar/" class="archive-article-date">
+  	<time datetime="2016-08-08T19:02:12.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-08-09</time>
+</a>
+      
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+
+  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
     </nav>
   
 
@@ -666,7 +665,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2016 fire3
+    		&copy; 2017 fire3
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
@@ -719,7 +718,7 @@
     
     	<section class="tools-section tools-section-tag">
     			<div class="widget tagcloud" id="js-tagcloud">
-    				<a href="/tags/android/" style="font-size: 13.33px;">android</a> <a href="/tags/coreos/" style="font-size: 10px;">coreos</a> <a href="/tags/git/" style="font-size: 20px;">git</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/huge-page/" style="font-size: 10px;">huge page</a> <a href="/tags/json/" style="font-size: 10px;">json</a> <a href="/tags/kernel/" style="font-size: 16.67px;">kernel</a> <a href="/tags/kvm/" style="font-size: 10px;">kvm</a> <a href="/tags/latex/" style="font-size: 10px;">latex</a> <a href="/tags/letv/" style="font-size: 10px;">letv</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/sphinx/" style="font-size: 10px;">sphinx</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a>
+    				<a href="/tags/android/" style="font-size: 20px;">android</a> <a href="/tags/aria2/" style="font-size: 10px;">aria2</a> <a href="/tags/arm/" style="font-size: 10px;">arm</a> <a href="/tags/container/" style="font-size: 10px;">container</a> <a href="/tags/coreos/" style="font-size: 15px;">coreos</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/git/" style="font-size: 17.5px;">git</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/huge-page/" style="font-size: 10px;">huge page</a> <a href="/tags/json/" style="font-size: 10px;">json</a> <a href="/tags/kernel/" style="font-size: 15px;">kernel</a> <a href="/tags/kvm/" style="font-size: 12.5px;">kvm</a> <a href="/tags/latex/" style="font-size: 10px;">latex</a> <a href="/tags/linux/" style="font-size: 17.5px;">linux</a> <a href="/tags/redmine/" style="font-size: 10px;">redmine</a> <a href="/tags/rkt/" style="font-size: 10px;">rkt</a> <a href="/tags/shadowsocks/" style="font-size: 10px;">shadowsocks</a> <a href="/tags/sphinx/" style="font-size: 10px;">sphinx</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a>
     			</div>
     	</section>
     
